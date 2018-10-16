@@ -2,11 +2,12 @@
 
 {% block header %}
 <h1>{% block title %}Search results{% endblock %}</h1>
-<a class="action" href="{{ url_for('search.get_myfav') }}">My Favourites</a>
+{{ super() }}
 <a class="action" href="{{ url_for('search.search') }}">New search</a>
 {% endblock %}
 
 {% block content %}
+
 {% for result in results %}
 <article class="result">
     <header>

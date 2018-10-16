@@ -2,6 +2,8 @@
 <title>{% block title %}{% endblock %} - MyShows</title>
 <link rel="shortcut icon" href="{{ url_for('static', filename='tvshow.png') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+<!-- Load icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <nav>
     <h1>MyShows</h1>
@@ -16,8 +18,13 @@
     </ul>
 </nav>
 <section class="content">
+
     <header>
-        {% block header %}{% endblock %}
+        {% block header %}
+        {% if g.user['id'] %}
+        <a class="action" href="{{ url_for('search.get_myfav') }}">My Favourites</a>
+        {% endif %}
+        {% endblock %}
     </header>
     {% for message in get_flashed_messages() %}
     <div class="flash">{{ message }}</div>

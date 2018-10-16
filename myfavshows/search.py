@@ -14,11 +14,12 @@ params = {'api_key': '7ecd6a3ceec1b96921b4647095047e8e'}
 
 
 def get_show(show_json):
-    '''
+    """
 
     :param show_json:
     :return: dictionnary with more
-    '''
+    """
+
     result = {
         'title': show_json['name'],
         'date': show_json['first_air_date'],
@@ -56,7 +57,11 @@ def search():
         else:
             return redirect(url_for('search.get_results', query=title))
 
-    return render_template('search/search.html')
+    # Get the list of today's trending shows with an API call
+    req = requests.get('https://api.themoviedb.org/3/trending/tv/day', params)
+    results = get_shows(req.json())
+
+    return render_template('search/search.html',results=results)
 
 
 @bp.route('/results/<query>',methods=('GET',))
