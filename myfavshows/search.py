@@ -26,7 +26,8 @@ def get_show(show_json):
         'popularity': show_json['popularity'],
         'vote_average': show_json['vote_average'],
         'overview': show_json['overview'],
-        'id': show_json['id']
+        'id': show_json['id'],
+        'poster_url': 'https://image.tmdb.org/t/p/w200' + show_json['poster_path']
     }
     return result
 
@@ -43,6 +44,29 @@ def get_shows(req_json):
     return results
 
 
+def shows_to_session():
+    """
+    Fetches the user's favourite shows' ids and stores it in the 'session' object, aborts if no user loged in
+    :return: None
+    """
+    if g.user is not None:
+        return None
+
+    shows = []
+    show_ids = get_db().execute(
+        'SELECT show_id'
+        ' FROM shows_users '
+        ' WHERE user_id = ?',
+        (session.get('user_id'),)
+    ).fetchall()
+
+    for show in show_ids:
+        shows += [show['show_id']]
+
+    session['show_ids'] = shows
+    return None
+
+
 @bp.route('/', methods=('GET', 'POST'))
 def search():
     if request.method == 'POST':
@@ -57,6 +81,9 @@ def search():
         else:
             return redirect(url_for('search.get_results', query=title))
 
+    if g.user is not None:
+        shows_to_session()
+
     # Get the list of today's trending shows with an API call
     req = requests.get('https://api.themoviedb.org/3/trending/tv/day', params)
     results = get_shows(req.json())
@@ -67,20 +94,8 @@ def search():
 @bp.route('/results/<query>',methods=('GET',))
 def get_results(query):
 
-    shows = []
-
     if g.user is not None:
-        show_ids = get_db().execute(
-            'SELECT show_id'
-            ' FROM shows_users '
-            ' WHERE user_id = ?',
-            (session.get('user_id'),)
-        ).fetchall()
-
-        for show in show_ids:
-            shows += [show['show_id']]
-
-    session['show_ids'] = shows
+        shows_to_session()
 
     if query is None:
         query = 'house'

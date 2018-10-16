@@ -8,16 +8,25 @@
 {% block content %}
 {% for result in results %}
 <article class="result">
-    <header>
-        <div>
-            <h1>{{ result['title'] }}</h1>
-            <div class="about">First aired on {{ result['date'] }} | {{ result['vote_average'] }} Stars</div>
+    <div class="flex-container">
+        <div style="flex-grow: 1">
+            <img src="{{ result['poster_url'] }}" style="width:165px;height:250px;float:center">
         </div>
-        <a href="{{ url_for('search.rm_from_fav',show_id=result['id'], name=result['title'] ) }}" class='ph-button ph-btn-red'>Remove</a>
-        <!--<a class="action" href="{{ url_for('search.rm_from_fav',show_id=result['id'], name=result['title'] ) }}"> Remove from my favourites</a>-->
-    </header>
-    <p class="body">{{ result['overview'] }}</p>
 
+        <div style="flex-grow: 7">
+
+            <header>
+                <a href="{{ url_for('search.rm_from_fav',show_id=result['id'], name=result['title'] ) }}" class='action ph-button ph-btn-red'>Remove</a>
+                <!--<a class="action" href="{{ url_for('search.rm_from_fav',show_id=result['id'], name=result['title'] ) }}"> Remove from my favourites</a>-->
+                <div>
+                    <h1>{{ result['title'] }}</h1>
+                    <div class="about">First aired on {{ result['date'] }} | {{ result['vote_average'] }} Stars</div>
+                </div>
+
+            </header>
+            <p class="body">{{ result['overview'] }}</p>
+        </div>
+    </div>
 </article>
 {% if not loop.last %}
 <hr>
