@@ -15,6 +15,7 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 def register():
     if request.method == 'POST':
         username = request.form['username']
+        email = request.form['email']
         password = request.form['password']
         db = get_db()
         error = None
@@ -22,8 +23,8 @@ def register():
 
         if not username:
             error = 'Username is required.'
-        if re.search(expr_regu, username) is None:
-            error = 'You must fill the username framework with an email address.'
+        if re.search(expr_regu, email) is None:
+            error = 'Please enter a correct email address.'
         elif not password:
             error = 'Password is required.'
         elif db.execute(
@@ -33,8 +34,8 @@ def register():
 
         if error is None:
             db.execute(
-                'INSERT INTO user (username, password) VALUES (?, ?)',
-                (username, generate_password_hash(password))
+                'INSERT INTO user (username, email, password) VALUES (?, ?, ?)',
+                (username, email, generate_password_hash(password))
             )
             db.commit()
             flash('Hi %s, welcome to MyFavShows! Enter your credentials to log in :' % username.capitalize())

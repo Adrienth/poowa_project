@@ -18,11 +18,12 @@
             {% if result['id'] in session.get('show_ids') %}
             <a class="action">Already added</a>
             {% else %}
-            <a class="action" href="{{ url_for('search.add_to_fav',show_id=result['id'], name=result['title'] ) }}">+ Add to my favourites</a>
-            {% endif %}
+        <a href="{{ url_for('search.add_to_fav',show_id=result['id'], name=result['title'] ) }}" class='ph-button ph-btn-blue' >Add</a>
+        <!-- <a class="action" href="{{ url_for('search.add_to_fav',show_id=result['id'], name=result['title'] ) }}">+ Add to my favourites</a> -->
         {% endif %}
-    </header>
-    <p class="body">{{ result['overview'] }}</p>
+    {% endif %}
+</header>
+<p class="body">{{ result['overview'] }}</p>
 
 </article>
 {% if not loop.last %}
