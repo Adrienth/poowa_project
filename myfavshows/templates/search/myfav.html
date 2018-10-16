@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<h1>{% block title %}Search results{% endblock %}</h1>
-<a class="action" href="{{ url_for('search.get_myfav') }}">My Favourites</a>
+<h1>{% block title %}My Favourite Shows{% endblock %}</h1>
 <a class="action" href="{{ url_for('search.search') }}">New search</a>
 {% endblock %}
 
@@ -12,7 +11,7 @@
     <header>
         <div>
             <h1>{{ result['title'] }}</h1>
-            <div class="about">First aired on {{ result['date'] }} | {{ result['vote_average'] }} Stars</div>
+            <div class="about">First aired on {{ result['date'] }} | Popularity of {{ result['popularity'] }}</div>
         </div>
         {% if g.user['id'] %}
             {% if result['id'] in session.get('show_ids') %}
