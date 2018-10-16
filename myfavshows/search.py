@@ -12,8 +12,6 @@ bp = Blueprint('search', __name__)
 
 
 
-
-
 api_key = '7ecd6a3ceec1b96921b4647095047e8e'
 
 
@@ -40,7 +38,7 @@ def get_results(query):
 
     shows = []
 
-    if g.user is not None :
+    if g.user is not None:
         show_ids = get_db().execute(
             'SELECT show_id'
             ' FROM shows_users '
@@ -53,14 +51,14 @@ def get_results(query):
 
     session['show_ids'] = shows
 
-    if query is None :
+    if query is None:
         query = 'house'
 
     params = {
         'api_key' : api_key,
         'query' : query
     }
-    req = requests.get('https://api.themoviedb.org/3/search/tv',params)
+    req = requests.get('https://api.themoviedb.org/3/search/tv', params)
 
 
     if not req.ok:
@@ -75,11 +73,11 @@ def get_results(query):
     else:
         for res in reqj["results"]:
             results += [{
-                'title' : res['name'],
-                'date' : res['first_air_date'],
-                'popularity' : res['popularity'],
-                'overview' : res['overview'],
-                'id' : res['id']
+                'title': res['name'],
+                'date': res['first_air_date'],
+                'popularity': res['popularity'],
+                'overview': res['overview'],
+                'id': res['id']
             }]
     return render_template('search/results.html', results=results)
 

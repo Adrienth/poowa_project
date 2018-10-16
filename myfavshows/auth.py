@@ -6,6 +6,7 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from myfavshows.db import get_db
+import re
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -17,9 +18,12 @@ def register():
         password = request.form['password']
         db = get_db()
         error = None
+        expr_regu = r"^[a-zA-Z0-9_\-]+(\.[a-zA-Z0-9_\-]+)*@[a-zA-Z0-9_\-]+(\.[a-zA-Z0-9_\-]+)*(\.[a-zA-Z]{2,6})$"
 
         if not username:
             error = 'Username is required.'
+        if re.search(expr_regu, username) is None:
+            error = 'You must fill the username framework with an email address.'
         elif not password:
             error = 'Password is required.'
         elif db.execute(
