@@ -5,7 +5,7 @@ from werkzeug.exceptions import abort
 
 from myfavshows.auth import login_required
 from myfavshows.db import get_db
-from myfavshows.search import get_show_from_id, shows_to_session
+from myfavshows.functions import *
 
 import requests
 
