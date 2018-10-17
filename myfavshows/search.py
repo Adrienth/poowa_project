@@ -13,23 +13,51 @@ bp = Blueprint('search', __name__)
 params = {'api_key': '7ecd6a3ceec1b96921b4647095047e8e'}
 
 
-def get_show(show_json):
+def get_shows_from_search(query):
     """
-    Retrieves the information we need from the TMDB JSON API
-    :param show_json:
-    :return: dictionnary with more
+    :param req_:
+    :return: a list of all the API request's results. Each result is a dictionnary with the same
+    items : 'title', 'date', 'popularity', 'vote_average', 'overview', 'id', 'poster_url'
+    """
+
+    params['query'] = query
+
+    req = requests.get('https://api.themoviedb.org/3/search/tv', params)
+
+    if not req.ok:
+        # print('there was an error in the request : ', req.status_code)
+        pass
+
+    req_json = req.json()
+
+    results = []
+    if req_json["total_results"] == 0:
+        # print('no result corresponding')
+        pass
+    else:
+        for res in req_json["results"]:
+            results += [get_show_from_search(res)]
+    return results
+
+
+def get_show_from_search(res):
+    """
+    :param res:
+    :return: a dictionnary result with the following items : 'title', 'date', 'popularity', 'vote_average',
+    'overview', 'id', 'poster_url'
     """
 
     result = {
-        'title': show_json['name'],
-        'date': show_json['first_air_date'],
-        'popularity': show_json['popularity'],
-        'vote_average': show_json['vote_average'],
-        'trunc_overview': show_json['overview'],
-        'overview': show_json['overview'],
-        'id': show_json['id'],
-        'poster_url': 'https://image.tmdb.org/t/p/w200' + show_json['poster_path']
-    }
+        'title': res['name'],
+        'date': res['first_air_date'],
+        'popularity': res['popularity'],
+        'vote_average': res['vote_average'],
+        'trunc_overview': res['overview'],
+        'overview': res['overview'],
+        'id': res['id'],
+        'poster_url': 'https://image.tmdb.org/t/p/w200' + res['poster_path']
+        }
+
     # Truncates the overview text to fit our style need, 260 characters max
     nb_char = 270
     view = result['trunc_overview']
@@ -39,22 +67,30 @@ def get_show(show_json):
 
     return result
 
-
-def get_shows(req_json):
+def get_show_from_id(show_id):
+    """
+    :param req_:
+    :return: a dictionnary with the following items : 'title', 'date', 'popularity', 'vote_average',
+    'overview', 'id', 'poster_url', 'number of seasons' ...
     """
 
-    :param req_json:
-    :return: a list of all the API request's results. Each result is a dictionnary with the same
-    items : 'title', 'date', 'popularity', 'vote_average', 'overview', 'id', 'poster_url'
-    """
-    results = []
-    if req_json["total_results"] == 0:
-        # print('no result corresponding')
-        pass
-    else:
-        for res in req_json["results"]:
-            results += [get_show(res)]
-    return results
+    req = requests.get('https://api.themoviedb.org/3/tv/' + str(show_id), params)
+    req_json = req.json()
+    resultat = {
+        'title': req_json['name'],
+        'date': req_json['first_air_date'],
+        'popularity': req_json['popularity'],
+        'vote_average': req_json['vote_average'],
+        'overview': req_json['overview'],
+        'id': show_id,
+        'poster_url': 'https://image.tmdb.org/t/p/w200' + req_json['poster_path'],
+        'number_of_seasons': req_json['number_of_seasons'],
+        'number_of_episodes': req_json['number_of_episodes'],
+        'seasons': req_json['seasons'],
+        'next_episode_to_air': req_json['next_episode_to_air']
+        }
+
+    return resultat
 
 
 def shows_to_session():
@@ -113,15 +149,7 @@ def get_results(query):
     if query is None:
         query = 'house'
 
-    params['query'] = query
-
-    req = requests.get('https://api.themoviedb.org/3/search/tv', params)
-
-    if not req.ok:
-        # print('there was an error in the request : ', req.status_code)
-        pass
-
-    results = get_shows(req.json())
+    results = get_shows_from_search(query)
 
     return render_template('search/results.html', results=results)
 
@@ -157,31 +185,6 @@ def rm_from_fav(show_id, name):
     db.commit()
     return redirect(request.referrer)
 
-
-
-
-@bp.route('/tv_show/<show_id>')
-def get_tv_show_page(show_id):
-
-    req = requests.get('https://api.themoviedb.org/3/tv/' + str(show_id), params)
-    req_json = req.json()
-    resultat = {
-        'title': req_json['name'],
-        'date': req_json['first_air_date'],
-        'popularity': req_json['popularity'],
-        'vote_average': req_json['vote_average'],
-        'overview': req_json['overview'],
-        'id': show_id,
-        'poster_url': 'https://image.tmdb.org/t/p/w200' + req_json['poster_path'],
-        'number_of_seasons': req_json['number_of_seasons'],
-        'number_of_episodes': req_json['number_of_episodes'],
-        'seasons': req_json['seasons'],
-        'next_episode_to_air': req_json['next_episode_to_air']
-        }
-
-    #req_json['seasons'] est une liste de dictionnaires (1 par saison] contenant
-    # air_date, id, poster_path, season_number, episode_count
-    return resultat
 
 
 

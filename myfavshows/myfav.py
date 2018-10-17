@@ -5,7 +5,7 @@ from werkzeug.exceptions import abort
 
 from myfavshows.auth import login_required
 from myfavshows.db import get_db
-from myfavshows.search import get_show, shows_to_session
+from myfavshows.search import get_show_from_id, shows_to_session
 
 import requests
 
@@ -22,7 +22,6 @@ def get_my_fav():
 
     results = []
     for show_id in session['show_ids']:
-        req = requests.get('https://api.themoviedb.org/3/tv/' + str(show_id), params)
-        results += [get_show(req.json())]
+        results += [get_show_from_id(show_id)]
 
     return render_template('myfav/myfav.html', results=results)
