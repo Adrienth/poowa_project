@@ -15,9 +15,9 @@ nav ul li a, nav ul li span { display: block; padding: 0.5rem; }
 .result > header { display: flex; align-items: flex-end; font-size: 0.85em; }
 .result > header > div:first-of-type { flex: auto; }
 .result > header h1 { font-size: 1.5em; margin-bottom: 0; }
-.result .about { color: slategray; font-style: italic; }
-.result .body { white-space: pre-line; color: #333c4e;}
-header .action { display: block; float: right; }
+.result .about { color: slategray;}
+.result .body { white-space: pre-line; color: #333c4e; line-height: 20px;}
+header .action { display: block; float: right; margin-bottom: 0.3rem;margin-left: 0.20rem; }
 .content:last-child { margin-bottom: 0; }
 .content form { margin: 1em 0; }
 .content label { font-weight: bold; margin-bottom: 0.5em; }
@@ -174,11 +174,26 @@ form.searchbar::after {
   display: flex;
   align-items: stretch;
   background-color: #f1f1f1;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
 .flex-container > div {
   color: white;
   width: 100px;
-  margin: 5px;
-  line-height: 30px;
+  margin: 8px;
+  line-height: 20px;
+  height:250px;
+}
+
+
+.poster {
+  margin: 0px;
+}
+
+/* Gradient color for the ratings star */
+.gradient-icon {
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffeecc), to(#ffc34d));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: initial;
 }
