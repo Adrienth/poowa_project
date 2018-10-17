@@ -19,11 +19,11 @@ def register():
         password = request.form['password']
         db = get_db()
         error = None
-        expr_regu = r"^[a-zA-Z0-9_\-]+(\.[a-zA-Z0-9_\-]+)*@[a-zA-Z0-9_\-]+(\.[a-zA-Z0-9_\-]+)*(\.[a-zA-Z]{2,6})$"
+        regu_expr = r"^[a-zA-Z0-9_\-]+(\.[a-zA-Z0-9_\-]+)*@[a-zA-Z0-9_\-]+(\.[a-zA-Z0-9_\-]+)*(\.[a-zA-Z]{2,6})$"
 
         if not username:
             error = 'Username is required.'
-        if re.search(expr_regu, email) is None:
+        if re.search(regu_expr, email) is None:
             error = 'Please enter a correct email address.'
         elif not password:
             error = 'Password is required.'
