@@ -52,9 +52,31 @@ def get_shows_from_search(query):
     return results
 
 
+def clean_result(result):
+    """
+    Cleans the dictionnary of a tv show by adapting it to our needs like clean poster URL and truncated overview field
+    :param result: the dictionnary representing a tv show
+    :return: result the same cleaned dictionnary
+    """
+    # Check if there is poster path before creating the URL
+    if result['poster_path'] is None:
+        result['poster_url'] = None
+    else:
+        result['poster_url'] = 'https://image.tmdb.org/t/p/w200' + result['poster_path']
+
+    # Truncates the overview text to fit our style need, 260 characters max
+    nb_char = 270
+    view = result['overview']
+    if len(view) > nb_char:
+        view = view[:nb_char] + '...'
+    result['trunc_overview'] = view
+
+    return result
+
+
 def get_show_from_search(res):
     """
-    :param res:
+    :param res: dictionnary
     :return: a dictionnary result with the following items : 'title', 'date', 'popularity', 'vote_average',
     'overview', 'id', 'poster_url'
     """
@@ -64,18 +86,12 @@ def get_show_from_search(res):
         'date': res['first_air_date'],
         'popularity': res['popularity'],
         'vote_average': res['vote_average'],
-        'trunc_overview': res['overview'],
+        'poster_path': res['poster_path'],
         'overview': res['overview'],
-        'id': res['id'],
-        'poster_url': 'https://image.tmdb.org/t/p/w200' + res['poster_path']
+        'id': res['id']
         }
 
-    # Truncates the overview text to fit our style need, 260 characters max
-    nb_char = 270
-    view = result['trunc_overview']
-    if len(view) > nb_char:
-        view = view[:nb_char] + '...'
-    result['trunc_overview'] = view
+    result = clean_result(result)
 
     return result
 
@@ -89,21 +105,23 @@ def get_show_from_id(show_id):
 
     req = requests.get('https://api.themoviedb.org/3/tv/' + str(show_id), params)
     req_json = req.json()
-    resultat = {
+    result = {
         'title': req_json['name'],
         'date': req_json['first_air_date'],
         'popularity': req_json['popularity'],
         'vote_average': req_json['vote_average'],
         'overview': req_json['overview'],
         'id': show_id,
-        'poster_url': 'https://image.tmdb.org/t/p/w200' + req_json['poster_path'],
+        'poster_path': req_json['poster_path'],
         'number_of_seasons': req_json['number_of_seasons'],
         'number_of_episodes': req_json['number_of_episodes'],
         'seasons': req_json['seasons'],
         'next_episode_to_air': req_json['next_episode_to_air']
         }
 
-    return resultat
+    result = clean_result(result)
+
+    return result
 
 
 def shows_to_session():

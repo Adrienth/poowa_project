@@ -5,7 +5,7 @@ from werkzeug.exceptions import abort
 
 from myfavshows.auth import login_required
 from myfavshows.db import get_db
-from myfavshows.functions import *
+from myfavshows.backend import *
 
 bp = Blueprint('search', __name__)
 

@@ -17,7 +17,11 @@
 <article class="result">
     <div class="flex-container">
         <div class="poster" style="flex-grow: 1">
+            {% if result['poster_url'] %}
             <img src="{{ result['poster_url'] }}" style="width:165px;height:250px;float:center" alt="'{{ result['title'] }}' poster">
+            {% else %}
+            <img src="https://www.scenebyte.com/images/no_poster.jpg" style="width:165px;height:250px;float:center" alt="No poster available">
+            {% endif %}
         </div>
 
         <div style="flex-grow: 7">
