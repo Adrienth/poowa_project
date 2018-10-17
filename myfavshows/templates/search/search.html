@@ -16,8 +16,8 @@
 {% for result in results %}
 <article class="result">
     <div class="flex-container">
-        <div style="flex-grow: 1">
-            <img src="{{ result['poster_url'] }}" style="width:165px;height:250px;float:center">
+        <div class="poster" style="flex-grow: 1">
+            <img src="{{ result['poster_url'] }}" style="width:165px;height:250px;float:center" alt="'{{ result['title'] }}' poster">
         </div>
 
         <div style="flex-grow: 7">
@@ -27,17 +27,18 @@
             {% if result['id'] in session.get('show_ids') %}
             <a class="action">Already added</a>
             {% else %}
-            <a href="{{ url_for('search.add_to_fav',show_id=result['id'], name=result['title'] ) }}" class='action ph-button ph-btn-blue' >Add</a>
+            <a href="{{ url_for('search.add_to_fav',show_id=result['id'], name=result['title'] ) }}" class='action ph-button ph-btn-blue'
+               title="Add '{{ result['title'] }}' to favourites" >Add</a>
             <!-- <a class="action" href="{{ url_for('search.add_to_fav',show_id=result['id'], name=result['title'] ) }}">+ Add to my favourites</a> -->
             {% endif %}
             {% endif %}
             <div>
                 <h1>{{ result['title'] }}</h1>
-                <div class="about">First aired on {{ result['date'] }} | {{ result['vote_average'] }} Stars</div>
+                <div class="about">First aired on {{ result['date'] }} | {{ result['vote_average'] }} <i class="fa fa-star gradient-icon"></i></div>
             </div>
 
         </header>
-        <p class="body">{{ result['overview'] }}</p>
+        <p class="body">{{ result['trunc_overview'] }}</p>
         </div>
     </div>
 </article>

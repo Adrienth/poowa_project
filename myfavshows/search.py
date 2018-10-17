@@ -15,7 +15,7 @@ params = {'api_key': '7ecd6a3ceec1b96921b4647095047e8e'}
 
 def get_show(show_json):
     """
-
+    Retrieves the information we need from the TMDB JSON API
     :param show_json:
     :return: dictionnary with more
     """
@@ -25,10 +25,18 @@ def get_show(show_json):
         'date': show_json['first_air_date'],
         'popularity': show_json['popularity'],
         'vote_average': show_json['vote_average'],
+        'trunc_overview': show_json['overview'],
         'overview': show_json['overview'],
         'id': show_json['id'],
         'poster_url': 'https://image.tmdb.org/t/p/w200' + show_json['poster_path']
     }
+    # Truncates the overview text to fit our style need, 260 characters max
+    nb_char = 270
+    view = result['trunc_overview']
+    if len(view) > nb_char:
+        view = view[:nb_char] + '...'
+    result['trunc_overview'] = view
+
     return result
 
 
@@ -49,7 +57,7 @@ def shows_to_session():
     Fetches the user's favourite shows' ids and stores it in the 'session' object, aborts if no user loged in
     :return: None
     """
-    if g.user is not None:
+    if not 'user_id' in session:
         return None
 
     shows = []
@@ -81,7 +89,7 @@ def search():
         else:
             return redirect(url_for('search.get_results', query=title))
 
-    if g.user is not None:
+    if 'user_id' in session:
         shows_to_session()
 
     # Get the list of today's trending shows with an API call
@@ -94,7 +102,7 @@ def search():
 @bp.route('/results/<query>',methods=('GET',))
 def get_results(query):
 
-    if g.user is not None:
+    if 'user_id' in session:
         shows_to_session()
 
     if query is None:
@@ -122,7 +130,7 @@ def add_to_fav(show_id, name):
     db.execute(
         'INSERT INTO shows_users (show_id, user_id)'
         ' VALUES (?, ?)',
-        (show_id, g.user['id'])
+        (show_id, session['user_id'])
     )
 
     flash('\"%s\" has been successfully added to your favourite TV Shows!' % name)
@@ -134,10 +142,10 @@ def add_to_fav(show_id, name):
 def rm_from_fav(show_id, name):
 
     db = get_db()
-    print(show_id)
+
     db.execute(
         'DELETE FROM shows_users WHERE show_id = ? and user_id = ?',
-        (show_id, g.user['id'])
+        (show_id, session['user_id'])
     )
 
     flash('\"%s\" has been successfully removed from your favourite TV Shows!' % name)
@@ -151,7 +159,7 @@ def get_myfav():
 
     shows = []
 
-    if g.user is not None:
+    if 'user_id' in session:
         show_ids = get_db().execute(
             'SELECT show_id'
             ' FROM shows_users '
