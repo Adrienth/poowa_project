@@ -104,7 +104,7 @@ def search():
     return render_template('search/search.html', results=results)
 
 
-@bp.route('/results/<query>',methods=('GET',))
+@bp.route('/results/<query>', methods=('GET',))
 def get_results(query):
 
     if 'user_id' in session:
@@ -158,20 +158,6 @@ def rm_from_fav(show_id, name):
     return redirect(request.referrer)
 
 
-@bp.route('/myfav')
-@login_required
-def get_myfav():
-
-    if g.user is not None:
-        shows_to_session()
-
-    results = []
-    for show_id in session.get('show_ids'):
-        req = requests.get('https://api.themoviedb.org/3/tv/' + str(show_id), params)
-        results += [get_show(req.json())]
-
-    return render_template('search/myfav.html', results=results)
-
 
 
 @bp.route('/tv_show/<show_id>')
@@ -186,10 +172,10 @@ def get_tv_show_page(show_id):
         'vote_average': req_json['vote_average'],
         'overview': req_json['overview'],
         'id': show_id,
-        'poster_url': 'https://image.tmdb.org/t/p/w200' + req_json['poster_path']
+        'poster_url': 'https://image.tmdb.org/t/p/w200' + req_json['poster_path'],
         'number_of_seasons': req_json['number_of_seasons'],
         'number_of_episodes': req_json['number_of_episodes'],
-        'seasons': req_json['seasons']
+        'seasons': req_json['seasons'],
         'next_episode_to_air': req_json['next_episode_to_air']
         }
 
