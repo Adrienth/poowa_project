@@ -14,8 +14,8 @@ bp = Blueprint('myshow', __name__)
 params = {'api_key': '7ecd6a3ceec1b96921b4647095047e8e'}
 
 
-@bp.route('/myshow/<show_id>')
+@bp.route('/myshow/<int:show_id>')
 def get_my_show(show_id):
 
-    result = get_show_from_id(show_id)
-    return render_template('myfav/myfav.html', results=result)
+    result = [get_show_from_id(show_id)]
+    return render_template('myshow/myshow.html', results=result)

@@ -17,7 +17,7 @@ params = {'api_key': '7ecd6a3ceec1b96921b4647095047e8e'}
 @login_required
 def get_my_fav():
 
-    if g.user is not None:
+    if session['user_id'] is not None:
         shows_to_session()
 
     results = []
