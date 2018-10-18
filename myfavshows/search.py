@@ -28,7 +28,7 @@ def search():
         shows_to_session()
 
     # Get the list of today's trending shows with an API call
-    results = get_shows_from_trendings()
+    results = get_shows_from_search(None)
 
     return render_template('search/search.html', results=results)
 

@@ -10,21 +10,6 @@ from myfavshows.db import get_db
 params = {'api_key': '7ecd6a3ceec1b96921b4647095047e8e'}
 
 
-def get_shows_from_trendings():
-
-    req = requests.get('https://api.themoviedb.org/3/trending/tv/day', params)
-    req_json = req.json()
-
-    results = []
-    if req_json["total_results"] == 0:
-        # print('no result corresponding')
-        pass
-    else:
-        for res in req_json["results"]:
-            results += [get_show_from_search(res)]
-    return results
-
-
 def get_shows_from_search(query):
     """
     :param query:
@@ -32,9 +17,12 @@ def get_shows_from_search(query):
     items : 'title', 'date', 'popularity', 'vote_average', 'overview', 'id', 'poster_url'
     """
 
-    params['query'] = query
-
-    req = requests.get('https://api.themoviedb.org/3/search/tv', params)
+    if query is None:
+        req = requests.get('https://api.themoviedb.org/3/trending/tv/day', params)
+        # Get the list of today's trending shows with an API call
+    else:
+        params['query'] = query
+        req = requests.get('https://api.themoviedb.org/3/search/tv', params)
 
     if not req.ok:
         # print('there was an error in the request : ', req.status_code)
@@ -48,8 +36,57 @@ def get_shows_from_search(query):
         pass
     else:
         for res in req_json["results"]:
-            results += [get_show_from_search(res)]
+            results += [select_useful_items(res)]
     return results
+
+
+def select_useful_items(res):
+    """
+    :param res: one of the dictionary included in the req_json object, which is a list of dictionaries
+    :return: a dictionary selecting the useful items of the input and cleaning them
+    """
+
+    result = {
+        'title': res['name'],
+        'date': res['first_air_date'],
+        'popularity': res['popularity'],
+        'vote_average': res['vote_average'],
+        'poster_path': res['poster_path'],
+        'overview': res['overview'],
+        'id': res['id']
+        }
+
+    result = clean_result(result)
+
+    return result
+
+
+def get_show_from_id(show_id):
+    """
+    :param show_id:
+    :return: a dictionary (about the show searched) with the following items : 'title', 'date', 'popularity',
+    'vote_average', 'overview', 'id', 'poster_url', 'number of seasons' ...
+    """
+
+    req = requests.get('https://api.themoviedb.org/3/tv/' + str(show_id), params)
+    req_json = req.json()
+    result = {
+        'title': req_json['name'],
+        'date': req_json['first_air_date'],
+        'popularity': req_json['popularity'],
+        'vote_average': req_json['vote_average'],
+        'overview': req_json['overview'],
+        'id': show_id,
+        'poster_path': req_json['poster_path'],
+        'number_of_seasons': req_json['number_of_seasons'],
+        'number_of_episodes': req_json['number_of_episodes'],
+        'seasons': req_json['seasons'],
+        'next_episode_to_air': req_json['next_episode_to_air']
+        }
+
+    result = clean_result(result)
+
+    return result
 
 
 def clean_result(result):
@@ -74,60 +111,9 @@ def clean_result(result):
     return result
 
 
-def get_show_from_search(res):
-    """
-    :param res: dictionnary
-    :return: a dictionary result with the following items : 'title', 'date', 'popularity', 'vote_average',
-    'overview', 'id', 'poster_url'
-    """
-
-    result = {
-        'title': res['name'],
-        'date': res['first_air_date'],
-        'popularity': res['popularity'],
-        'vote_average': res['vote_average'],
-        'poster_path': res['poster_path'],
-        'overview': res['overview'],
-        'id': res['id']
-        }
-
-    result = clean_result(result)
-
-    return result
-
-
-def get_show_from_id(show_id):
-    """
-    :param show_id_:
-    :return: a dictionnary with the following items : 'title', 'date', 'popularity', 'vote_average',
-    'overview', 'id', 'poster_url', 'number of seasons' ...
-    """
-
-    req = requests.get('https://api.themoviedb.org/3/tv/' + str(show_id), params)
-    req_json = req.json()
-    result = {
-        'title': req_json['name'],
-        'date': req_json['first_air_date'],
-        'popularity': req_json['popularity'],
-        'vote_average': req_json['vote_average'],
-        'overview': req_json['overview'],
-        'id': show_id,
-        'poster_path': req_json['poster_path'],
-        'number_of_seasons': req_json['number_of_seasons'],
-        'number_of_episodes': req_json['number_of_episodes'],
-        'seasons': req_json['seasons'],
-        'next_episode_to_air': req_json['next_episode_to_air']
-        }
-
-    result = clean_result(result)
-
-    return result
-
-
 def shows_to_session():
     """
     Fetches the user's favourite shows' ids and stores it in the 'session' object, aborts if no user logged in
-    :return: None
     """
     if not 'user_id' in session:
         return None
