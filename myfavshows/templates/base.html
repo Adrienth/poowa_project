@@ -48,17 +48,18 @@
             </div>
 
             <div style="flex-grow: 7">
-
+            {% if session['user_id'] %}
+            {% if result['id'] in session['show_ids'] %}
+            <a href="{{ url_for('search.rm_from_fav',show_id=result['id'], name=result['title'] ) }}" title="Remove '{{ result['title'] }}' from favourites" class="hearticon">
+                <i class="fa fa-heart"></i>
+            </a>
+            {% else %}
+            <a href="{{ url_for('search.add_to_fav',show_id=result['id'], name=result['title'] ) }}" title="Add '{{ result['title'] }}' to favourites" class="hearticon" >
+                <i class="fa fa-heart-o"></i>
+            </a>
+            {% endif %}
+            {% endif %}
             <header>
-                {% if session['user_id'] %}
-                {% if result['id'] in session['show_ids'] %}
-                <a href="{{ url_for('search.rm_from_fav',show_id=result['id'], name=result['title'] ) }}" class='action ph-button ph-btn-red'
-                   title="Remove '{{ result['title'] }}' from favourites">Remove</a>
-                {% else %}
-                <a href="{{ url_for('search.add_to_fav',show_id=result['id'], name=result['title'] ) }}" class='action ph-button ph-btn-blue'
-                   title="Add '{{ result['title'] }}' to favourites" >Add</a>
-                {% endif %}
-                {% endif %}
                 <div>
                     <h1>{{ result['title'] }}</h1>
                     <div class="about">First aired on {{ result['date'] }} | {{ result['vote_average'] }} <i class="fa fa-star gradient-icon"></i></div>

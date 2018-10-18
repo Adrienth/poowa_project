@@ -17,7 +17,7 @@ def search():
         error = None
 
         if not title:
-            error = 'A name is required.'
+            error = 'A TV show name is required.'
 
         if error is not None:
             flash(error)
@@ -33,8 +33,20 @@ def search():
     return render_template('search/search.html', results=results)
 
 
-@bp.route('/results/<query>', methods=('GET',))
+@bp.route('/results/<query>', methods=('GET','POST'))
 def get_results(query):
+
+    if request.method == 'POST':
+        title = request.form['title']
+        error = None
+
+        if not title:
+            error = 'A TV show name is required.'
+
+        if error is not None:
+            flash(error)
+        else:
+            return redirect(url_for('search.get_results', query=title))
 
     if 'user_id' in session:
         shows_to_session()

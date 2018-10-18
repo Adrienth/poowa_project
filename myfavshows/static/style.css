@@ -17,7 +17,8 @@ nav ul li a, nav ul li span { display: block; padding: 0.5rem; }
 .result > header h1 { font-size: 1.5em; margin-bottom: 0; }
 .result .about { color: slategray;}
 .result .body { white-space: pre-line; color: #333c4e; line-height: 20px;}
-header .action { display: block; float: right; margin-bottom: 0.3rem;margin-left: 0.20rem; }
+header .action { display: block; float: right; margin-bottom: 0.3rem;margin-left: 0.20rem;}
+.hearticon { display: block; float: right; margin-bottom: 0.3rem;margin-left: 0.20rem;font-size:30px; }
 .content:last-child { margin-bottom: 0; }
 .content form { margin: 1em 0; }
 .content label { font-weight: bold; margin-bottom: 0.5em; }
@@ -26,110 +27,8 @@ header .action { display: block; float: right; margin-bottom: 0.3rem;margin-left
 input.danger { color: #cc2f2e; }
 input[type=submit] { align-self: start; min-width: 10em; }
 
-
-/*Main button class
+/* SEARCH BAR
 ==========================*/
-.ph-button {
-
-    border-style: solid;
-    border-width: 0px 0px 3px;
-    box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.1) inset;
-    color: #FFFFFF;
-    border-radius: 6px;
-    cursor: pointer;
-    display: inline-block;
-    font-style: normal;
-    overflow: hidden;
-    text-align: center;
-    text-decoration: none;
-    text-overflow: ellipsis;
-    transition: all 200ms ease-in-out 0s;
-    white-space: nowrap;
-    font-family: "Gotham Rounded A","Gotham Rounded B",Helvetica,Arial,sans-serif;
-    font-weight: 700;
-    padding: 2px 10px 2px;
-    font-size: 14px;
-
-}
-
-/*Code CSS pour les boutons
-/*Green
-==========================*/
-.ph-btn-green {
-
-    border-color: #3AC162;
-	background-color: #5FCF80;
-
-}
-.ph-btn-green:hover, .ph-btn-green:focus, .ph-btn-green:active {
-    background-color: #4BC970;
-    border-color: #3AC162;
-}
-
-/*Blue
-==========================*/
-.ph-btn-blue {
-
-    border-color: #326E99;
-    background-color: #3F8ABF;
-}
-
-.ph-btn-blue:hover, .ph-btn-blue:focus, .ph-btn-blue:active {
-    background-color: #397CAC;
-    border-color: #326E99;
-}
-
-/*Grey
-==========================*/
-.ph-btn-grey {
-
-     background-color: #C6CCD2;
-     border-color: #AAB3BB;
-}
-.ph-btn-grey:hover, .ph-btn-grey:focus, .ph-btn-grey:active {
-    background-color: #B8BFC7;
-    border-color: #AAB3BB;
-}
-
-/*Red
-==========================*/
-.ph-btn-red {
-
-    background-color: #ED5A5A !important;
-    border-color: #EA4343 !important;
-
-}
-.ph-btn-red:hover, .ph-btn-red:focus, .ph-btn-red:active {
-    background: none repeat scroll 0 0 #EB4848 !important;
-    border-color: #E83131 !important;
-}
-
-
-/*DEMO ONLY FOR CENTER POSITION*/
-.ph-container {
-
-  margin: 0 auto;
-  display: inline;
-
-
-}
-
-.ph-float {
-
-  float: left;
-  width: 22%;
-  padding: 10px;
-  padding-top: 50px;
-  text-align: center;
-
-}
-
-.ph-clear {
-
-  clear: both;
-
-}
-
 * {
   box-sizing: border-box;
 }
@@ -169,7 +68,8 @@ form.searchbar::after {
 }
 
 
-/* Setting the Containers for the Shows' listings*/
+/* Setting the Containers for the Shows' listings
+==========================*/
 .flex-container {
   display: flex;
   align-items: stretch;
@@ -190,7 +90,8 @@ form.searchbar::after {
   margin: 0px;
 }
 
-/* Gradient color for the ratings star */
+/* Gradient color for the ratings star
+==========================*/
 .gradient-icon {
     background: -webkit-gradient(linear, left top, left bottom, from(#ffeecc), to(#ffc34d));
     -webkit-background-clip: text;
