@@ -27,8 +27,8 @@ def get_shows_from_trendings():
 
 def get_shows_from_search(query):
     """
-    :param req_:
-    :return: a list of all the API request's results. Each result is a dictionnary with the same
+    :param query_:
+    :return: a list of all the API request's results. Each result is a dictionary with the same
     items : 'title', 'date', 'popularity', 'vote_average', 'overview', 'id', 'poster_url'
     """
 
@@ -77,7 +77,7 @@ def clean_result(result):
 def get_show_from_search(res):
     """
     :param res: dictionnary
-    :return: a dictionnary result with the following items : 'title', 'date', 'popularity', 'vote_average',
+    :return: a dictionary result with the following items : 'title', 'date', 'popularity', 'vote_average',
     'overview', 'id', 'poster_url'
     """
 

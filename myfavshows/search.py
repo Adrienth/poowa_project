@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for,session
+    Blueprint, flash, g, redirect, render_template, request, url_for, session
 )
 from werkzeug.exceptions import abort
 
@@ -47,7 +47,6 @@ def get_results(query):
     return render_template('search/results.html', results=results)
 
 
-
 @bp.route('/addtofav/<int:show_id>/<name>')
 @login_required
 def add_to_fav(show_id, name):
@@ -62,6 +61,7 @@ def add_to_fav(show_id, name):
     flash('\"%s\" has been successfully added to your favourite TV Shows!' % name)
     db.commit()
     return redirect(request.referrer)
+
 
 @bp.route('/rmfromfav/<int:show_id>/<name>')
 @login_required
