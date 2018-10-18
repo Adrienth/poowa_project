@@ -33,7 +33,7 @@ def search():
     return render_template('search/search.html', results=results)
 
 
-@bp.route('/results/<query>', methods=('GET','POST'))
+@bp.route('/results/<query>', methods=('GET', 'POST'))
 def get_results(query):
 
     if request.method == 'POST':

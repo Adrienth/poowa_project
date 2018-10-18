@@ -1,10 +1,12 @@
 <!doctype html>
+
+<head>
 <title>{% block title %}{% endblock %} - MyShows</title>
 <link rel="shortcut icon" href="{{ url_for('static', filename='tvshow.png') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
 <!-- Load icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+</head>
 
 <nav>
     <h1>MyShows</h1>
@@ -61,7 +63,7 @@
             {% endif %}
             <header>
                 <div>
-                    <h1> {{ result['title'] }} </h1>
+                    <h1> <a style="text-decoration:none" href="{{ url_for('myshow.get_my_show', show_id=result['id']) }}"> {{ result['title'] }} </a> </h1>
                     <div class="about">First aired on {{ result['date'] }} | {{ result['vote_average'] }} <i class="fa fa-star gradient-icon"></i></div>
                 </div>
 
