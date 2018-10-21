@@ -47,13 +47,13 @@ def select_useful_items(res):
     """
 
     result = {
+        'id': res['id'],
         'title': res['name'],
         'date': res['first_air_date'],
         'popularity': res['popularity'],
         'vote_average': res['vote_average'],
         'poster_path': res['poster_path'],
-        'overview': res['overview'],
-        'id': res['id']
+        'overview': res['overview']
         }
 
     result = clean_result(result)
@@ -71,13 +71,13 @@ def get_show_from_id(show_id):
     req = requests.get('https://api.themoviedb.org/3/tv/' + str(show_id), params)
     req_json = req.json()
     result = {
+        'id': show_id,
         'title': req_json['name'],
         'date': req_json['first_air_date'],
         'popularity': req_json['popularity'],
         'vote_average': req_json['vote_average'],
-        'overview': req_json['overview'],
-        'id': show_id,
         'poster_path': req_json['poster_path'],
+        'overview': req_json['overview'],
         'number_of_seasons': req_json['number_of_seasons'],
         'number_of_episodes': req_json['number_of_episodes'],
         'seasons': req_json['seasons'],
