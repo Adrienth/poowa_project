@@ -82,7 +82,6 @@ class Show:
     def set_vote_count(self, vote_count):
         self.__vote_count = vote_count
 
-    def
 
 
 
