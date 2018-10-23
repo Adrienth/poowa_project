@@ -75,7 +75,7 @@ class ShowDetailedView(Show):
         self._genres = res['genres']
         self._number_of_seasons = res['number_of_seasons']
         self._seasons = []
-        i = 0
+        i = 1
         while i <= self._number_of_seasons:
             self._seasons += [Season(self._id, i)]
             i += 1
@@ -118,7 +118,9 @@ class Season:
         self._poster_url = None
         self._episode_count = len(res['episodes'])
         self._air_date = res['air_date']
-        self.episodes = []
+        self._episodes = []
+        for episode in res['episodes']:
+            self._episodes += [Episode(episode)]
 
     def _get_season_number(self):
         return self._season_number
@@ -158,6 +160,50 @@ class Season:
     poster_path = property(_get_poster_path)
     poster_url = property(_get_poster_url)
     episode_count = property(_get_episode_count)
+    air_date = property(_get_air_date)
+
+
+class Episode:
+
+    def __init__(self, res):
+        self._air_date = res['air_date']
+        self._vote_average = res['vote_average']
+        self._name = res['name']
+        self._poster_path = res['still_path']
+        self._poster_url = None
+        self._overview = res['overview']
+        self._trunc_overview = None
+
+    def _get_name(self):
+        return self._name
+
+    def _get_overview(self):
+        return self._overview
+
+    def _get_trunc_overview(self):
+        nb_char = 270
+        view = self._overview
+        if len(view) > nb_char:
+            view = view[:nb_char] + '...'
+        return view
+
+    def _get_poster_path(self):
+        return self._poster_path
+
+    def _get_poster_url(self):
+        if self._poster_path is None:
+            return None
+        else:
+            return 'https://image.tmdb.org/t/p/w200' + self._poster_path
+
+    def _get_air_date(self):
+        return self._air_date
+
+    name = property(_get_name)
+    overview = property(_get_overview)
+    trunc_overview = property(_get_trunc_overview)
+    poster_path = property(_get_poster_path)
+    poster_url = property(_get_poster_url)
     air_date = property(_get_air_date)
 
 
