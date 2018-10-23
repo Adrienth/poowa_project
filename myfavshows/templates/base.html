@@ -42,8 +42,8 @@
     <article class="result">
         <div class="flex-container">
             <div class="poster" style="flex-grow: 1">
-                {% if result['poster_url'] %}
-                <img src="{{ result['poster_url'] }}" style="width:165px;height:250px;float:center" alt="'{{ result['title'] }}' poster">
+                {% if result.poster_url %}
+                <img src="{{ result['poster_url'] }}" style="width:165px;height:250px;float:center" alt="'{{ result.title }}' poster">
                 {% else %}
                 <img src="https://www.scenebyte.com/images/no_poster.jpg" style="width:165px;height:250px;float:center" alt="No poster available">
                 {% endif %}
@@ -51,24 +51,24 @@
 
             <div style="flex-grow: 7">
             {% if session['user_id'] %}
-            {% if result['id'] in session['show_ids'] %}
-            <a href="{{ url_for('search.rm_from_fav',show_id=result['id'], name=result['title'] ) }}" title="Remove '{{ result['title'] }}' from favourites" class="hearticon">
+            {% if result.id in session['show_ids'] %}
+            <a href="{{ url_for('myfav.rm_from_fav',show_id=result.id, name=result.title ) }}" title="Remove '{{ result.title }}' from favourites" class="hearticon">
                 <i class="fa fa-heart"></i>
             </a>
             {% else %}
-            <a href="{{ url_for('search.add_to_fav',show_id=result['id'], name=result['title'] ) }}" title="Add '{{ result['title'] }}' to favourites" class="hearticon" >
+            <a href="{{ url_for('myfav.add_to_fav',show_id=result.id, name=result.title) }}" title="Add '{{ result.title }}' to favourites" class="hearticon" >
                 <i class="fa fa-heart-o"></i>
             </a>
             {% endif %}
             {% endif %}
             <header>
                 <div>
-                    <h1> <a style="text-decoration:none" href="{{ url_for('myshow.get_my_show', show_id=result['id']) }}"> {{ result['title'] }} </a> </h1>
-                    <div class="about">First aired on {{ result['date'] }} | {{ result['vote_average'] }} <i class="fa fa-star gradient-icon"></i></div>
+                    <h1> <a style="text-decoration:none" href="{{ url_for('myshow.get_my_show', show_id=result.id) }}"> {{ result.title }} </a> </h1>
+                    <div class="about">First aired on {{ result.date }} | {{ result.vote_average }} <i class="fa fa-star gradient-icon"></i></div>
                 </div>
 
             </header>
-            <p class="body">{{ result['trunc_overview'] }}</p>
+            <p class="body">{{ result.trunc_overview}}</p>
             </div>
         </div>
     </article>
