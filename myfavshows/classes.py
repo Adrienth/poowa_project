@@ -13,7 +13,8 @@ class Show:
         self._date = res['first_air_date']
         self._popularity = res['popularity']
         self._vote_average = res['vote_average']
-        self._poster_url = res['poster_path']
+        self._poster_path = res['poster_path']
+        self._poster_url = None
         self._overview = res['overview']
         self._trunc_overview = None
 
@@ -32,11 +33,14 @@ class Show:
     def _get_vote_average(self):
         return self._vote_average
 
+    def _get_poster_path(self):
+        return self._poster_path
+
     def _get_poster_url(self):
-        if self._poster_url is None:
+        if self._poster_path is None:
             return None
         else:
-            return 'https://image.tmdb.org/t/p/w200' + self._poster_url
+            return 'https://image.tmdb.org/t/p/w200' + self._poster_path
 
     def _get_overview(self):
         return self._overview
@@ -53,6 +57,7 @@ class Show:
     date = property(_get_date)
     popularity = property(_get_popularity)
     vote_average = property(_get_vote_average)
+    poster_path = property(_get_poster_path)
     poster_url = property(_get_poster_url)
     overview = property(_get_overview)
     trunc_overview = property(_get_trunc_overview)
@@ -109,7 +114,7 @@ class Season:
         self._season_number = res['season_number']
         self._name = res['name']
         self._overview = res['overview']
-        self._poster_path = res['poster_path']
+        self._poster_url = res['poster_path']
         self._episode_count = len(res['episodes'])
         self._air_date = res['air_date']
         self.episodes = []
@@ -123,7 +128,17 @@ class Season:
     def _get_overview(self):
         return self._overview
 
+    def _get_trunc_overview(self):
+        nb_char = 270
+        view = self._overview
+        if len(view) > nb_char:
+            view = view[:nb_char] + '...'
+        return view
+
     def _get_poster_path(self):
+        return self._poster_path
+
+    def _get_poster_url(self):
         if self._poster_path is None:
             return None
         else:
@@ -138,7 +153,9 @@ class Season:
     season_number = property(_get_season_number)
     name = property(_get_name)
     overview = property(_get_overview)
+    trunc_overview = property(_get_trunc_overview)
     poster_path = property(_get_poster_path)
+    poster_url = property(_get_poster_url)
     episode_count = property(_get_episode_count)
     air_date = property(_get_air_date)
 
