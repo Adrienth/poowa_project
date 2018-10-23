@@ -69,7 +69,11 @@ class ShowDetailedView(Show):
         self._production_companies = res['production_companies']
         self._genres = res['genres']
         self._number_of_seasons = res['number_of_seasons']
-        self._number_of_episodes = res['number_of_episodes']
+        self._seasons = []
+        i = 0
+        while i <= self._number_of_seasons:
+            self._seasons += [Season(self._id, i)]
+            i += 1
 
     def _get_origin_country(self):
         return self._origin_country[0]
@@ -86,24 +90,58 @@ class ShowDetailedView(Show):
     def _get_number_of_seasons(self):
         return self._number_of_seasons
 
-    def _get_number_of_episodes(self):
-        return self._number_of_episodes
+    def _get_seasons(self):
+        return self._seasons
 
     origin_country = property(_get_origin_country)
     film_maker = property(_get_film_maker)
     production_companies = property(_get_production_companies)
     genres = property(_get_genres)
     number_of_seasons = property(_get_number_of_seasons)
-    number_of_episodes = property(_get_number_of_episodes)
+    seasons = property(_get_seasons)
 
-"""
 
 class Season:
 
-    def __init__(self, season_id):
-        self.id = season_id
+    def __init__(self, show_id, season_number):
+        req = requests.get('https://api.themoviedb.org/3/tv/' + str(show_id) + '/season/' + str(season_number), params)
+        res = req.json()
+        self._season_number = res['season_number']
+        self._name = res['name']
+        self._overview = res['overview']
+        self._poster_path = res['poster_path']
+        self._episode_count = len(res['episodes'])
+        self._air_date = res['air_date']
+        self.episodes = []
+
+    def _get_season_number(self):
+        return self._season_number
+
+    def _get_name(self):
+        return self._name
+
+    def _get_overview(self):
+        return self._overview
+
+    def _get_poster_path(self):
+        return self._poster_path
+
+    def _get_episode_count(self):
+        return self._episode_count
+
+    def _get_air_date(self):
+        return self._air_date
+
+    season_number = property(_get_season_number)
+    name = property(_get_name)
+    overview = property(_get_overview)
+    poster_path = property(_get_poster_path)
+    episode_count = property(_get_episode_count)
+    air_date = property(_get_air_date)
 
 
+
+"""
 class Episode:
 
     def __init__(self, show_id, season_number, episode_number):
