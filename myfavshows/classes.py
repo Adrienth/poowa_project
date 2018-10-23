@@ -124,7 +124,10 @@ class Season:
         return self._overview
 
     def _get_poster_path(self):
-        return self._poster_path
+        if self._poster_path is None:
+            return None
+        else:
+            return 'https://image.tmdb.org/t/p/w200' + self._poster_path
 
     def _get_episode_count(self):
         return self._episode_count
