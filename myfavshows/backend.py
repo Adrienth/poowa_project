@@ -61,7 +61,7 @@ def select_useful_items(res):
     return result
 
 
-def get_show_from_id(show_id):
+def get_show_from_id(show_id, trunc_view=True):
     """
     :param show_id:
     :return: a dictionary (about the show searched) with the following items : 'title', 'date', 'popularity',
@@ -84,12 +84,12 @@ def get_show_from_id(show_id):
         'next_episode_to_air': req_json['next_episode_to_air']
         }
 
-    result = clean_result(result)
+    result = clean_result(result, trunc_view)
 
     return result
 
 
-def clean_result(result):
+def clean_result(result, trunc_view=True):
     """
     Cleans the dictionnary of a tv show by adapting it to our needs like clean poster URL and truncated overview field
     :param result: the dictionnary representing a tv show
@@ -102,13 +102,24 @@ def clean_result(result):
         result['poster_url'] = 'https://image.tmdb.org/t/p/w200' + result['poster_path']
 
     # Truncates the overview text to fit our style need, 260 characters max
-    nb_char = 270
-    view = result['overview']
-    if len(view) > nb_char:
-        view = view[:nb_char] + '...'
-    result['trunc_overview'] = view
+    if trunc_view :
+        nb_char = 270
+        view = result['overview']
+        if len(view) > nb_char:
+            view = view[:nb_char] + '...'
+        result['trunc_overview'] = view
+    else :
+        result['trunc_overview'] = result['overview']
 
     return result
+
+
+def get_season(show_id, season_number):
+
+    req = requests.get('https://api.themoviedb.org/3/tv/' + str(show_id) + '/season/' + str(season_number), params)
+    req_json = req.json()
+
+    return req_json
 
 
 def shows_to_session():

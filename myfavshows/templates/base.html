@@ -38,6 +38,7 @@
 
     {% block content %}{% endblock %}
 
+    {% block show_results %}
     {% for result in results %}
     <article class="result">
         <div class="flex-container">
@@ -76,4 +77,5 @@
     <hr>
     {% endif %}
     {% endfor %}
+    {% endblock %}
 </section>

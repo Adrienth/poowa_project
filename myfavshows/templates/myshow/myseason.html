@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}The show searched{% endblock %}</h1>
+{{super()}}
+<a class="action" href="{{ url_for('search.search') }}">New search</a>
+{% endblock %}
+
+{% block content %}
+<article class="result">
+    <div class="flex-container">
+        <div class="poster" style="flex-grow: 1">
+            {% if season['poster_url'] %}
+            <img src="{{ season['poster_url'] }}" style="width:165px;height:250px;float:center" alt="'{{ season['name'] }}' poster">
+            {% else %}
+            <img src="https://www.scenebyte.com/images/no_poster.jpg" style="width:165px;height:250px;float:center" alt="No poster available">
+            {% endif %}
+        </div>
+
+        <div style="flex-grow: 7">
+            <header>
+                <div>
+                    <h1>  {{ season['name'] }}  </h1>
+                    <div class="about">First aired on {{ season['air_date'] }} | {{ season['episode_count'] }} episodes </div>
+                </div>
+
+            </header>
+            <p class="body">{{ season['trunc_overview'] }}</p>
+        </div>
+    </div>
+</article>
+{% endblock %}
+
+{% block show_results %}
+<header><h1>Episodes' list</h1></header>
+{% for episode in episodes %}
+<article class="result">
+    <div class="flex-container">
+        <div class="poster" style="flex-grow: 1">
+            {% if episode['poster_url'] %}
+            <img src="{{ episode['poster_url'] }}" style="width:165px;height:250px;float:center" alt="'{{ episode['name'] }}' poster">
+            {% else %}
+            <img src="https://www.scenebyte.com/images/no_poster.jpg" style="width:165px;height:250px;float:center" alt="No poster available">
+            {% endif %}
+        </div>
+
+        <div style="flex-grow: 7">
+            <header>
+                <div>
+                    <h1> <a style="text-decoration:none" href="{{ url_for('myshow.get_my_show', show_id=episode['id']) }}"> {{ episode['name'] }} </a> </h1>
+                    <div class="about">First aired on {{ episode['air_date'] }} | {{ episode['vote_average'] }} <i class="fa fa-star gradient-icon"></i> </div>
+                </div>
+
+            </header>
+            <p class="body">{{ episode['overview'] }}</p>
+        </div>
+    </div>
+</article>
+{% if not loop.last %}
+<hr>
+{% endif %}
+{% endfor %}
+
+{% endblock %}
