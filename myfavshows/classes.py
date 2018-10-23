@@ -114,7 +114,8 @@ class Season:
         self._season_number = res['season_number']
         self._name = res['name']
         self._overview = res['overview']
-        self._poster_url = res['poster_path']
+        self._poster_path = res['poster_path']
+        self._poster_url = None
         self._episode_count = len(res['episodes'])
         self._air_date = res['air_date']
         self.episodes = []
