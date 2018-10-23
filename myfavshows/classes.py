@@ -153,6 +153,7 @@ class Season:
     def _get_air_date(self):
         return self._air_date
 
+
     season_number = property(_get_season_number)
     name = property(_get_name)
     overview = property(_get_overview)
@@ -196,6 +197,9 @@ class Episode:
         else:
             return 'https://image.tmdb.org/t/p/w200' + self._poster_path
 
+    def _get_vote_average(self):
+        return self._vote_average
+
     def _get_air_date(self):
         return self._air_date
 
@@ -205,112 +209,4 @@ class Episode:
     poster_path = property(_get_poster_path)
     poster_url = property(_get_poster_url)
     air_date = property(_get_air_date)
-
-
-
-"""
-class Episode:
-
-    def __init__(self, show_id, season_number, episode_number):
-        self.show_id = show_id
-        self.season_number = season_number
-        self.episode_number = episode_number
-
-
-Now if you want complete freedom of adding more parameters:
-
-class Cheese():
-    def __init__(self, *args, **kwargs):
-        #args -- tuple of anonymous arguments
-        #kwargs -- dictionary of named arguments
-        self.num_holes = kwargs.get('num_holes',random_holes())
-
-Here is the list that needs to be completed of parameters for a show_quick_view (-- : we ignore) :
-poster_path
-popularity
-id
-vote_average
-vote_count
-overview
-first_air_date
-name
---backdrop_path
---original_name
---origin_country
---genre_ids
---original_language
-
-
-Here is the list that needs to be completed of parameters for a show_full_view (-- : we ignore) :
-poster_path
-popularity
-id
-vote_average
-vote_count
-overview
-first_air_date
-name
-seasons(
-    air_date,
-    episode_count,
-    id,name,
-    overview,
-    poster_path,
-    season_number)
-next_episode_to_air(
-    air_date,
-    episode_number,
-    id,name,
-    overview,
-    production_code,
-    season_number,
-    show_id,
-    still_path,
-    vote_average,
-    vote_count)
-created_by (
-    id,
-    credit_id,
-    name,
-    gender,
-    profile_path)
-status
---original_name
---origin_country
---genres(
-    id,
-    name)
---original_language
---backdrop_path
---episode_run_time
---homepage
---in_production
---languages
---last_air_date
---last_episode_to_air(
-    air_date,
-    episode_number,
-    id,name,
-    overview,
-    production_code,
-    season_number,
-    show_id,
-    still_path,
-    vote_average,
-    vote_count)
-
---networks(
-    name,
-    id,
-    logo_path,
-    origin_country)
---number_of_episodes
---number_of_seasons
---production_companies(
-    id, 
-    logo_path,
-    name,
-    origin_country)
---status
---kind
-"""
+    vote_average = property(_get_vote_average)
