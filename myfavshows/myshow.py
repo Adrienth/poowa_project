@@ -1,11 +1,12 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for,session
+    Blueprint, flash, g, redirect, render_template, request, url_for, session
 )
 from werkzeug.exceptions import abort
 
-from myfavshows.auth import login_required
 from myfavshows.db import get_db
 from myfavshows.backend import *
+from myfavshows.classes import *
+
 
 import requests
 
@@ -17,7 +18,7 @@ def get_my_show(show_id):
     if 'user_id' in session:
         shows_to_session()
 
-    show = get_show_from_id(show_id, trunc_view=False)
+    show = ShowDetailedView(show_id)
     seasons = []
     for season in show['seasons']:
         if season['poster_path']:

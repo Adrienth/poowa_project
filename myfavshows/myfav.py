@@ -6,6 +6,7 @@ from werkzeug.exceptions import abort
 from myfavshows.auth import login_required
 from myfavshows.db import get_db
 from myfavshows.backend import *
+from myfavshows.classes import *
 
 import requests
 
@@ -22,6 +23,37 @@ def get_my_fav():
 
     results = []
     for show_id in session['show_ids']:
-        results += [get_show_from_id(show_id)]
+        results += [ShowDetailedView(show_id)]
 
     return render_template('myfav/myfav.html', results=results)
+
+@bp.route('/addtofav/<int:show_id>/<name>')
+@login_required
+def add_to_fav(show_id, name):
+
+    db = get_db()
+    db.execute(
+        'INSERT INTO shows_users (show_id, user_id)'
+        ' VALUES (?, ?)',
+        (show_id, session['user_id'])
+    )
+
+    flash('\"%s\" has been successfully added to your favourite TV Shows!' % name)
+    db.commit()
+    return redirect(request.referrer)
+
+
+@bp.route('/rmfromfav/<int:show_id>/<name>')
+@login_required
+def rm_from_fav(show_id, name):
+
+    db = get_db()
+
+    db.execute(
+        'DELETE FROM shows_users WHERE show_id = ? and user_id = ?',
+        (show_id, session['user_id'])
+    )
+
+    flash('\"%s\" has been successfully removed from your favourite TV Shows!' % name)
+    db.commit()
+    return redirect(request.referrer)
