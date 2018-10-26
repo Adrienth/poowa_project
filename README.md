@@ -1,4 +1,4 @@
-# MyFavShows App ![](./myfavshows/static/tvshow.png =250x)
+# MyFavShows App <img src="./myfavshows/static/tvshow.png" alt="drawing" width="50" align="center"/>
 
 ## Collaborative school project
 
@@ -7,8 +7,8 @@ Registered users can add TV Shows to their favourites in order to get more detai
 They also can enable notifications whenever a new episode of one of their favourites is aired.
 
 
-##Installation
-1. Install the Python `virutalenv` package : 
+## Installation
+1. Install the Python `virutalenv` package: 
 
   `pip install virtualenv`
 
@@ -20,4 +20,18 @@ They also can enable notifications whenever a new episode of one of their favour
   `virtualenv .`
 
 
-3. dsqd
+3. From the same directory, install the app:
+
+   `pip install -e myfavshows/`
+  
+## Running the MyFavShows
+   
+1. Go to your virtualenv. Add the app to your environment variables:
+
+	Linux / MacOS:`export FLASK_APP=myfavshows`
+	
+	Windows: `set FLASK_APP=myfavshows`
+
+2. Run the app:
+
+	`flask run`
