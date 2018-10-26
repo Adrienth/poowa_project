@@ -1,23 +1,24 @@
 {% extends 'base.html' %}
 
+
 {% block header %}
-<h1>{% block title %}{% endblock %}</h1>
+<h1>More about {% block title %}{{ show.title }}{% endblock %}</h1>
 {{super()}}
 <a class="action" href="{{ url_for('search.search') }}">New search</a>
 {% endblock %}
 
 {% block content %}
 <article class="result">
-    <div class="flex-container">
-        <div class="poster" style="flex-grow: 1">
+    <div class="flex-container" >
+        <div class="poster" style="height: 300px;flex-grow: 2">
             {% if show.poster_url %}
-            <img src="{{ show.poster_url }}" style="width:165px;height:250px;float:center" alt="'{{ show.title }}' poster">
+            <img src="{{ show.poster_url }}" style="height:300px;float:center" alt="'{{ show.title }}' poster">
             {% else %}
             <img src="https://www.scenebyte.com/images/no_poster.jpg" style="width:165px;height:250px;float:center" alt="No poster available">
             {% endif %}
         </div>
 
-        <div style="flex-grow: 7">
+        <div style="height: 300px;flex-grow: 10">
             {% if session['user_id'] %}
             {% if show.id in session['show_ids'] %}
             <a href="{{ url_for('myfav.rm_from_fav',show_id=show.id, name=show.title ) }}" title="Remove '{{ show.title }}' from favourites" class="hearticon">
@@ -32,7 +33,7 @@
             <header>
                 <div>
                     <h1> <a style="text-decoration:none" href="{{ url_for('myshow.get_my_show', show_id=show.id) }}"> {{ show.title }} </a> </h1>
-                    <div class="about">First aired on {{ show.date }} | {{ show.vote_average }} <i class="fa fa-star gradient-icon"></i></div>
+                    <div class="about">First aired in {{ show.date }} | {{ show.vote_average }} <i class="fa fa-star gradient-icon"></i></div>
                 </div>
 
             </header>
@@ -59,7 +60,7 @@
             <header>
                 <div>
                     <h1> <a style="text-decoration:none" href="{{ url_for('myshow.get_my_season', show_id=show.id, season_number=season.season_number) }}"> {{ season.name }} </a> </h1>
-                    <div class="about">First aired on {{ season.air_date }} | {{ season.episode_count }} episodes </div>
+                    <div class="about">Aired in {{ season.air_date }} | {{ season.episode_count }} episodes </div>
                 </div>
 
             </header>
