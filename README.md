@@ -1,4 +1,4 @@
-# MyFavShows App ![](./myfavshows/static/tvshow.png =500x)
+# MyFavShows App ![](./myfavshows/static/tvshow.png)
 
 ## Collaborative school project
 
