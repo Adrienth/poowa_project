@@ -7,7 +7,7 @@
 
 {% block navbar %}
 <ul>
-    <li><a class="active" href="{{ url_for('search.search')}}">New Search</a></li>
+    <li><a class="active" href="{{ url_for('search.search')}}">Search Show</a></li>
     <li><a href="{{ url_for('search.get_trending')}}">Trending</a></li>
     <li><a href="{{ url_for('search.get_popular')}}">Popular</a></li>
     <li><a href="{{ url_for('search.get_top_rated')}}">Top rated</a></li>
@@ -26,7 +26,7 @@
 
 
 {% if session.get('last_show_name') %}
-<header><h1>Because you like {{ session.get('last_show_name') }}...</h1></header>
+<header><h1>Because you watch {{ session.get('last_show_name') }}...</h1></header>
 {% else %}
 <header><h1>Today's Trending</h1></header>
 {% endif %}

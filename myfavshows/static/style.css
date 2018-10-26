@@ -1,11 +1,11 @@
-html { font-family: 'Open Sans', sans-serif; background: #ffffff; padding: 1rem; }
+html { font-family: 'Open Sans', sans-serif; font-weight: 300; background: #ffffff; padding: 1rem; }
 body { max-width: 960px; margin: 0 auto; background: white; }
-h1 { font-family: 'Open Sans', sans-serif; color: #377ba8; margin: 1rem 0; }
-a { color: #377ba8; text-decoration:none }
+h1 { font-family: 'Open Sans', sans-serif;font-weight: 200; font-size: x-large; color: #2d8a9c; margin: 1rem 0; }
+a { color: #2d8a9c; text-decoration:none }
 hr { border: none; border-top: 1px solid lightgray; }
 nav { background: #ffffff; display: flex; align-items: center; padding: 0 0.5rem; }
 nav h1 { flex: auto; margin: 0; }
-nav h1 a { text-decoration: none; padding: 0.25rem 0.5rem; }
+nav h1 a { text-decoration: none; padding: 0.25rem 0.5rem;font-size: xx-large; }
 nav ul  { display: flex; list-style: none; margin: 0; padding: 0; }
 nav ul li a, nav ul li span { display: block; padding: 0.5rem; }
 .content { padding: 0 1rem 1rem; }
@@ -15,7 +15,7 @@ nav ul li a, nav ul li span { display: block; padding: 0.5rem; }
 .result > header { display: flex; align-items: flex-end; font-size: 0.85em; }
 .result > header > div:first-of-type { flex: auto; }
 .result > header h1 { font-size: 1.5em; margin-bottom: 0; }
-.result .about { color: slategray;}
+.result .about { color: #769cb5;}
 .result .body { white-space: pre-line; color: #333c4e; line-height: 20px;}
 header .action { display: block; float: right; margin-bottom: 0.3rem;margin-left: 0.20rem;}
 .hearticon { display: block; float: right; margin-bottom: 0.3rem;margin-left: 0.20rem;font-size:30px; }
@@ -49,6 +49,7 @@ li a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    font-weight: 200;
 }
 
 li a:hover:not(.active) {
@@ -123,10 +124,12 @@ hr {
 form.searchbar input[type=text] {
   padding: 10px;
   font-size: 17px;
+  font-weight: lighter;
   border: 1px solid grey;
   float: left;
   width: 80%;
   background: #f1f1f1;
+  margin-bottom: 0em;
 }
 
 /* Style the submit button */
@@ -134,7 +137,7 @@ form.searchbar button {
   float: left;
   width: 20%;
   padding: 10px;
-  background: #2196F3;
+  background: #25b7d3;
   color: white;
   font-size: 17px;
   border: 1px solid grey;
