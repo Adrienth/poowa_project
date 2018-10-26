@@ -1,8 +1,6 @@
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for, session
 )
-from werkzeug.exceptions import abort
-
 
 import requests
 from myfavshows.db import get_db

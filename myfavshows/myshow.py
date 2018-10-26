@@ -1,12 +1,9 @@
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for, session
 )
-from werkzeug.exceptions import abort
 
-from myfavshows.db import get_db
 from myfavshows.backend import *
 from myfavshows.classes import *
-
 
 import requests
 
@@ -26,6 +23,6 @@ def get_my_show(show_id):
 @bp.route('/myshow/<show_title>/<int:show_id>/season/<int:season_number>')
 def get_my_season(show_title, show_id, season_number):
 
-    season = Season(show_id, season_number, show_title=show_title)
+    season = SeasonDetailedView(show_title, show_id, season_number)
 
     return render_template('myshow/myseason.html', season=season)

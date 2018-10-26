@@ -10,7 +10,7 @@ class Show:
     def __init__(self, res):
         self._id = res['id']
         self._title = res['name']
-        self._date = res['first_air_date'][:4]
+        self._date = res['first_air_date']
         self._popularity = res['popularity']
         self._vote_average = res['vote_average']
         self._poster_path = res['poster_path']
@@ -25,7 +25,10 @@ class Show:
         return self._title
 
     def _get_date(self):
-        return self._date
+        if self._date is None:
+            return "Unknown date"
+        else:
+            return self._date[:4]
 
     def _get_popularity(self):
         return self._popularity
@@ -76,10 +79,8 @@ class ShowDetailedView(Show):
         self._next_episode_to_air = res['next_episode_to_air']
         self._number_of_seasons = res['number_of_seasons']
         self._seasons = []
-        i = 1
-        while i <= self._number_of_seasons:
-            self._seasons += [Season(self._id, i)]
-            i += 1
+        for season in res['seasons']:
+            self._seasons += [Season(season)]
 
     def _get_origin_country(self):
         return self._origin_country[0]
@@ -113,27 +114,15 @@ class ShowDetailedView(Show):
 
 class Season:
 
-    def __init__(self, show_id, season_number, show_title=None):
-        req = requests.get('https://api.themoviedb.org/3/tv/' + str(show_id) + '/season/' + str(season_number), params)
-        res = req.json()
-        self._show_id = show_id
-        self._show_title = show_title
+    def __init__(self, res):
         self._season_number = res['season_number']
         self._name = res['name']
         self._overview = res['overview']
         self._poster_path = res['poster_path']
         self._poster_url = None
-        self._episode_count = len(res['episodes'])
-        self._air_date = res['air_date'][:4]
-        self._episodes = []
-        for episode in res['episodes']:
-            self._episodes += [Episode(episode)]
-
-    def _get_show_id(self):
-        return self._show_id
-
-    def _get_show_title(self):
-        return self._show_title
+        self._air_date = res['air_date']
+        if 'episode_count' in res:
+            self._episode_count = res['episode_count']
 
     def _get_season_number(self):
         return self._season_number
@@ -164,13 +153,11 @@ class Season:
         return self._episode_count
 
     def _get_air_date(self):
-        return self._air_date
+        if self._air_date is None:
+            return "Unknown date"
+        else:
+            return self._air_date[:4]
 
-    def _get_episodes(self):
-        return self._episodes
-
-    show_id = property(_get_show_id)
-    show_title = property(_get_show_title)
     season_number = property(_get_season_number)
     name = property(_get_name)
     overview = property(_get_overview)
@@ -179,6 +166,36 @@ class Season:
     poster_url = property(_get_poster_url)
     episode_count = property(_get_episode_count)
     air_date = property(_get_air_date)
+
+
+class SeasonDetailedView(Season):
+
+    def __init__(self, show_title, show_id, season_number):
+        req = requests.get('https://api.themoviedb.org/3/tv/' + str(show_id) + '/season/' + str(season_number), params)
+        res = req.json()
+        Season.__init__(self, res)
+        self._show_id = show_id
+        self._show_title = show_title
+        self._episode_count = len(res['episodes'])
+        self._episodes = []
+        for episode in res['episodes']:
+            self._episodes += [Episode(episode)]
+
+    def _get_show_id(self):
+        return self._show_id
+
+    def _get_show_title(self):
+        return self._show_title
+
+    def _get_episode_count(self):
+        return self._episode_count
+
+    def _get_episodes(self):
+        return self._episodes
+
+    show_id = property(_get_show_id)
+    show_title = property(_get_show_title)
+    episode_count = property(_get_episode_count)
     episodes = property(_get_episodes)
 
 
@@ -219,7 +236,10 @@ class Episode:
         return self._vote_average
 
     def _get_air_date(self):
-        return self._air_date
+        if self._air_date is None:
+            return "Unknown date"
+        else:
+            return self._air_date
 
     name = property(_get_name)
     overview = property(_get_overview)
@@ -228,101 +248,3 @@ class Episode:
     poster_url = property(_get_poster_url)
     air_date = property(_get_air_date)
     vote_average = property(_get_vote_average)
-
-"""
-class Cheese():
-    def __init__(self, *args, **kwargs):
-        #args -- tuple of anonymous arguments
-        #kwargs -- dictionary of named arguments
-        self.num_holes = kwargs.get('num_holes',random_holes())
-
-
-Here is the list that needs to be completed of parameters for a show_quick_view (-- : we ignore) :
-poster_path
-popularity
-id
-vote_average
-vote_count
-overview
-first_air_date
-name
---backdrop_path
---original_name
---origin_country
---genre_ids
---original_language
-
-
-Here is the list that needs to be completed of parameters for a show_full_view (-- : we ignore) :
-poster_path
-popularity
-id
-vote_average
-vote_count
-overview
-first_air_date
-name
-seasons(
-    air_date,
-    episode_count,
-    id,name,
-    overview,
-    poster_path,
-    season_number)
-next_episode_to_air(
-    air_date,
-    episode_number,
-    id,name,
-    overview,
-    production_code,
-    season_number,
-    show_id,
-    still_path,
-    vote_average,
-    vote_count)
-created_by (
-    id,
-    credit_id,
-    name,
-    gender,
-    profile_path)
-status
---original_name
---origin_country
---genres(
-    id,
-    name)
---original_language
---backdrop_path
---episode_run_time
---homepage
---in_production
---languages
---last_air_date
---last_episode_to_air(
-    air_date,
-    episode_number,
-    id,name,
-    overview,
-    production_code,
-    season_number,
-    show_id,
-    still_path,
-    vote_average,
-    vote_count)
-
---networks(
-    name,
-    id,
-    logo_path,
-    origin_country)
---number_of_episodes
---number_of_seasons
---production_companies(
-    id, 
-    logo_path,
-    name,
-    origin_country)
---status
---kind
-"""

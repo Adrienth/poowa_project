@@ -1,7 +1,6 @@
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for,session
 )
-from werkzeug.exceptions import abort
 
 from myfavshows.auth import login_required
 from myfavshows.db import get_db
@@ -18,9 +17,7 @@ params = {'api_key': '7ecd6a3ceec1b96921b4647095047e8e'}
 @login_required
 def get_my_fav():
 
-    if session['user_id'] is not None:
-        shows_to_session()
-
+    shows_to_session()
     results = []
     for show_id in session['show_ids']:
         results += [ShowDetailedView(show_id)]
@@ -48,7 +45,6 @@ def add_to_fav(show_id, name):
 def rm_from_fav(show_id, name):
 
     db = get_db()
-
     db.execute(
         'DELETE FROM shows_users WHERE show_id = ? and user_id = ?',
         (show_id, session['user_id'])
