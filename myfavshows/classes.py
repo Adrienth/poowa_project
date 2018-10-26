@@ -1,5 +1,39 @@
 import requests
+from threading import Thread, Lock
 params = {'api_key': '7ecd6a3ceec1b96921b4647095047e8e'}
+
+
+class APIrequest(Thread):
+    """
+    Thread class to do parallel queries to the API
+    """
+
+    show_ids = []
+    pointer = 0
+    shows = {}
+    lock = Lock()
+
+
+    def run(self):
+        APIrequest.lock.acquire()
+        show_id = APIrequest.show_ids[APIrequest.pointer]
+        APIrequest.pointer += 1
+        APIrequest.lock.release()
+
+        show = ShowDetailedView(show_id)
+
+        APIrequest.lock.acquire()
+        APIrequest.shows[show_id] = show
+        APIrequest.lock.release()
+
+    @staticmethod
+    def initiate():
+        """
+        Initialize the parameters before a call
+        """
+        APIrequest.pointer = 0
+        APIrequest.shows = {}
+        APIrequest.show_ids = []
 
 
 class Show:
