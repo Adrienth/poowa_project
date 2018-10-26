@@ -116,6 +116,7 @@ class Season:
     def __init__(self, show_id, season_number, show_title=None):
         req = requests.get('https://api.themoviedb.org/3/tv/' + str(show_id) + '/season/' + str(season_number), params)
         res = req.json()
+        self._show_id = show_id
         self._show_title = show_title
         self._season_number = res['season_number']
         self._name = res['name']
@@ -127,6 +128,9 @@ class Season:
         self._episodes = []
         for episode in res['episodes']:
             self._episodes += [Episode(episode)]
+
+    def _get_show_id(self):
+        return self._show_id
 
     def _get_show_title(self):
         return self._show_title
@@ -165,6 +169,7 @@ class Season:
     def _get_episodes(self):
         return self._episodes
 
+    show_id = property(_get_show_id)
     show_title = property(_get_show_title)
     season_number = property(_get_season_number)
     name = property(_get_name)

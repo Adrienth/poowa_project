@@ -2,7 +2,7 @@
 
 {% block header %}
 
-<h1><a  href="{{ url_for('myshow.get_my_show',show_id=show.id) }}">{% block title %}{{ season.show_title }}{% endblock %}</a></h1>
+<h1><a  href="{{ url_for('myshow.get_my_show',show_id=season.show_id) }}">{% block title %}{{ season.show_title }}{% endblock %}</a></h1>
 {{super()}}
 <a class="action" href="{{ url_for('search.search') }}">New search</a>
 {% endblock %}
