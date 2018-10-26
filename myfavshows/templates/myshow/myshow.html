@@ -19,16 +19,15 @@
         </div>
 
         <div style="height: 300px;flex-grow: 10">
-            {% if session['user_id'] %}
-            {% if show.id in session['show_ids'] %}
+
+            {% if session['user_id'] and show.id in session['show_ids'] %}
             <a href="{{ url_for('myfav.rm_from_fav',show_id=show.id, name=show.title ) }}" title="Remove '{{ show.title }}' from favourites" class="hearticon">
                 <i class="fa fa-heart"></i>
             </a>
             {% else %}
-            <a href="{{ url_for('myfav.add_to_fav',show_id=show['id'], name=show.title ) }}" title="Add '{{ show.title }}' to favourites" class="hearticon" >
+            <a href="{{ url_for('myfav.add_to_fav',show_id=show.id, name=show.title ) }}" title="Add '{{ show.title }}' to favourites" class="hearticon" >
                 <i class="fa fa-heart-o"></i>
             </a>
-            {% endif %}
             {% endif %}
             <header>
                 <div>
