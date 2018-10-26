@@ -5,6 +5,15 @@
 {{ super() }}
 {% endblock %}
 
+{% block navbar %}
+<ul>
+    <li><a class="active" href="{{ url_for('search.search')}}">New Search</a></li>
+    <li><a href="{{ url_for('myfav.get_my_fav')}}">My Favourites</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li style="float:right;"><a href="#about">About</a></li>
+</ul>
+{% endblock %}
+
 {% block content %}
 
     <form class="searchbar" method="post">

@@ -24,6 +24,14 @@
     </ul>
 </nav>
 
+{% block navbar %}
+<ul>
+    <li><a href="{{ url_for('search.search')}}">New Search</a></li>
+    <li><a href="{{ url_for('myfav.get_my_fav')}}">My Favourites</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li style="float:right;"><a href="#about">About</a></li>
+</ul>
+{% endblock %}
 
 <section class="content">
     <header>
@@ -54,16 +62,15 @@
             </div>
 
             <div style="flex-grow: 7">
-            {% if session['user_id'] %}
-            {% if result.id in session['show_ids'] %}
+
+            {% if session['user_id'] and result.id in session['show_ids'] %}
             <a href="{{ url_for('myfav.rm_from_fav',show_id=result.id, name=result.title ) }}" title="Remove '{{ result.title }}' from favourites" class="hearticon">
                 <i class="fa fa-heart"></i>
             </a>
             {% else %}
-            <a href="{{ url_for('myfav.add_to_fav',show_id=result.id, name=result.title) }}" title="Add '{{ result.title }}' to favourites" class="hearticon" >
+            <a href="{{ url_for('myfav.add_to_fav',show_id=result.id, name=result.title ) }}" title="Add '{{ result.title }}' to favourites" class="hearticon" >
                 <i class="fa fa-heart-o"></i>
             </a>
-            {% endif %}
             {% endif %}
             <header>
                 <div>
