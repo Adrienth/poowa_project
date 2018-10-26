@@ -14,6 +14,7 @@ bp = Blueprint('myshow', __name__)
 def get_my_show(show_id):
     if 'user_id' in session:
         shows_to_session()
+        print(session['show_ids'])
 
     show = ShowDetailedView(show_id)
 

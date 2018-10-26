@@ -41,7 +41,7 @@
             {% if episode.poster_url %}
             <img src="{{ episode.poster_url }}" style="width:250px;height:141px;margin-top:22px" alt="'{{ episode.name }}' poster">
             {% else %}
-            <img src="https://www.scenebyte.com/images/no_poster.jpg" style="width:165px;height:250px;float:center" alt="No poster available">
+            <img src="{{ url_for('static', filename='image-not-available.png')}}" style="width:250px;height:141px;margin-top:22px" alt="No poster available">
             {% endif %}
         </div>
 
