@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block navbar %}
+<ul>
+    <li><a href="{{ url_for('search.search')}}">New Search</a></li>
+    <li><a href="{{ url_for('myfav.get_my_fav')}}">My Favourites</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li class="active" style="float:right;"><a href="#about">About</a></li>
+</ul>
+{% endblock %}

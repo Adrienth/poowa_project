@@ -16,7 +16,7 @@
             {% endif %}
         </div>
 
-        <div style="flex-grow: 7">
+        <div style="height: 300px;flex-grow: 12">
             <header>
                 <div>
                     <h1>  {{ season.name }}  </h1>
@@ -43,7 +43,7 @@
             {% endif %}
         </div>
 
-        <div style="flex-grow: 7">
+        <div style="line-height: 0px;flex-grow: 7">
             <header>
                 <div>
                     <h1> <a style="text-decoration:none" href="{{ url_for('myshow.get_my_episode', show_title=season.show_title,
@@ -52,7 +52,7 @@
                 </div>
 
             </header>
-            <p class="body">{{ episode.trunc_overview }}</p>
+            <p class="body" style="margin-top:10px;">{{ episode.trunc_overview }}</p>
         </div>
     </div>
 </article>

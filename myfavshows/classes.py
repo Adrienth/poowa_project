@@ -13,6 +13,7 @@ class APIrequest(Thread):
     shows = {}
     lock = Lock()
 
+
     def run(self):
         APIrequest.lock.acquire()
         show_id = APIrequest.show_ids[APIrequest.pointer]
@@ -183,7 +184,7 @@ class Season:
         if self._poster_path is None:
             return None
         else:
-            return 'https://image.tmdb.org/t/p/w200' + self._poster_path
+            return 'https://image.tmdb.org/t/p/w300' + self._poster_path
 
     def _get_episode_count(self):
         return self._episode_count
@@ -251,7 +252,7 @@ class Episode:
         return self._overview
 
     def _get_trunc_overview(self):
-        nb_char = 200
+        nb_char = 500
         view = self._overview
         if len(view) > nb_char:
             view = view[:nb_char] + '...'
