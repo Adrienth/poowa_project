@@ -4,7 +4,6 @@
 {% block header %}
 <h1>More about {% block title %}{{ show.title }}{% endblock %}</h1>
 {{super()}}
-<a class="action" href="{{ url_for('search.search') }}">New search</a>
 {% endblock %}
 
 {% block content %}

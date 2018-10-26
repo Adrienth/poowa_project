@@ -15,7 +15,7 @@
     </h1>
     <ul>
         {% if session['user_id'] %}
-        <li><span> Hi {{ session['user_name'].capitalize() }}!</span>
+        <li><span> Welcome {{ session['user_name'].capitalize() }}!</span>
         <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
             {% else %}
         <li><a href="{{ url_for('auth.register') }}">Register</a>
@@ -35,11 +35,7 @@
 
 <section class="content">
     <header>
-        {% block header %}
-        {% if session['user_id'] %}
-        <a class="action" href="{{ url_for('myfav.get_my_fav')}}">My Favourites</a>
-        {% endif %}
-        {% endblock %}
+        {% block header %}{% endblock %}
     </header>
 
     {% for message in get_flashed_messages() %}
