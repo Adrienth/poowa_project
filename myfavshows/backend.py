@@ -59,3 +59,39 @@ def shows_to_session():
 
     session['show_ids'] = shows
     return None
+
+
+def make_multi_requests(show_ids):
+    """
+    Takes the ids to request and creates one thread by id to query the API
+    :param show_ids: list of the shows' ids
+    :return: list of shows objects corresponding
+    """
+
+    # lets make the new shows appear first
+    temp = []
+    for i in range(len(show_ids)):
+        temp.append(show_ids[-(i+1)])
+    show_ids = temp
+
+    APIrequest.initiate()
+    APIrequest.show_ids = show_ids
+    threads = []
+    for i in show_ids:
+        threads.append(APIrequest())
+
+    for t in threads:
+        t.start()
+
+    for t in threads:
+        t.join()
+
+    results = [0] * len(show_ids)
+
+    # we reorder the results
+    for show_id in APIrequest.shows.keys():
+        results[show_ids.index(show_id)] = APIrequest.shows[show_id]
+
+    return results
+
+
