@@ -27,7 +27,7 @@ header .action { display: block; float: right; margin-bottom: 0.3rem;margin-left
 input.danger { color: #cc2f2e; }
 input[type=submit] { align-self: start; min-width: 10em; }
 
-
+.notif {float:right; color:red;margin-right: 15px;font-size: smaller;font-style: italic;}
 
 /* Navigation bar
 ==========================*/
