@@ -1,4 +1,4 @@
-# MyFavShows App <img src="./myfavshows/static/tvshow.png" alt="drawing" width="50" align="center" float="right"/>
+# MyFavShows App <img src="./myfavshows/static/tvshow.png" alt="drawing" width="50" align="center"/>
 
 ## Collaborative school project
 
