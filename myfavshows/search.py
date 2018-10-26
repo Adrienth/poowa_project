@@ -27,7 +27,6 @@ def search():
     if 'user_id' in session:
         shows_to_session()
 
-    print(session['show_ids'])
     # Get the list of today's trending shows with an API call
     results = get_shows_from_search(None)
 
