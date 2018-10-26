@@ -10,19 +10,19 @@ They also can enable notifications whenever a new episode of one of their favour
 ## Installation
 1. Install the Python `virutalenv` package: 
 
-  `pip install virtualenv`
+	`pip install virtualenv`
 
 
 2. Download the projet directory. Once the files unzipped/downloaded, create a python virtual environment in the said directory: 
 
-  `cd /project_directory`
-
-  `virtualenv .`
+	`cd /project_directory`
+	
+	`virtualenv .`
 
 
 3. From the same directory, install the app:
 
-   `pip install -e myfavshows/`
+	`pip install -e myfavshows/`
   
 ## Running the MyFavShows
    
