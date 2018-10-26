@@ -18,11 +18,11 @@ params = {'api_key': '7ecd6a3ceec1b96921b4647095047e8e'}
 def get_my_fav():
 
     shows_to_session()
-    results = []
+    shows = []
     for show_id in session['show_ids']:
-        results += [ShowDetailedView(show_id)]
+        shows += [ShowDetailedView(show_id)]
 
-    return render_template('myfav/myfav.html', results=results)
+    return render_template('myfav/myfav.html', shows=shows)
 
 @bp.route('/addtofav/<int:show_id>/<name>')
 @login_required

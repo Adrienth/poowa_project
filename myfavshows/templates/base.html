@@ -46,12 +46,12 @@
     {% block content %}{% endblock %}
 
     {% block show_results %}
-    {% for result in results %}
+    {% for show in shows %}
     <article class="result">
         <div class="flex-container">
             <div class="poster" style="flex-grow: 1">
-                {% if result.poster_url %}
-                <img src="{{ result['poster_url'] }}" style="width:165px;height:250px;float:center" alt="'{{ result.title }}' poster">
+                {% if show.poster_url %}
+                <img src="{{ show['poster_url'] }}" style="width:165px;height:250px;float:center" alt="'{{ show.title }}' poster">
                 {% else %}
                 <img src="https://www.scenebyte.com/images/no_poster.jpg" style="width:165px;height:250px;float:center" alt="No poster available">
                 {% endif %}
@@ -59,23 +59,27 @@
 
             <div style="flex-grow: 7">
 
-            {% if session['user_id'] and result.id in session['show_ids'] %}
-            <a href="{{ url_for('myfav.rm_from_fav',show_id=result.id, name=result.title ) }}" title="Remove '{{ result.title }}' from favourites" class="hearticon">
+            {% if session['user_id'] and show.id in session['show_ids'] %}
+            <a href="{{ url_for('myfav.rm_from_fav',show_id=show.id, name=show.title ) }}" title="Remove '{{ show.title }}' from favourites" class="hearticon">
                 <i class="fa fa-heart"></i>
             </a>
             {% else %}
-            <a href="{{ url_for('myfav.add_to_fav',show_id=result.id, name=result.title ) }}" title="Add '{{ result.title }}' to favourites" class="hearticon" >
+            <a href="{{ url_for('myfav.add_to_fav',show_id=show.id, name=show.title ) }}" title="Add '{{ show.title }}' to favourites" class="hearticon" >
                 <i class="fa fa-heart-o"></i>
             </a>
             {% endif %}
             <header>
                 <div>
-                    <h1> <a href="{{ url_for('myshow.get_my_show', show_id=result.id) }}"> {{ result.title }} </a> </h1>
-                    <div class="about">First aired in {{ result.date }} | {{ result.vote_average }} <i class="fa fa-star gradient-icon"></i></div>
+                    {% if show.next_episode_to_air %}
+                    <h1> <a href="{{ url_for('myshow.get_my_show', show_id=show.id) }}"> {{ show.title }} </a> <span style="float:right; color:red"> New episodes coming </span> </h1>
+                    {% else %}
+                    <h1> <a href="{{ url_for('myshow.get_my_show', show_id=show.id) }}"> {{ show.title }} </a> </h1>
+                    {% endif %}
+                    <div class="about">First aired in {{ show.date }} | {{ show.vote_average }} <i class="fa fa-star gradient-icon"></i></div>
                 </div>
 
             </header>
-            <p class="body">{{ result.trunc_overview}}</p>
+            <p class="body">{{ show.trunc_overview}}</p>
             </div>
         </div>
     </article>
