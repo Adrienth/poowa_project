@@ -6,22 +6,34 @@ import requests
 from myfavshows.db import get_db
 from myfavshows.classes import *
 
+api_path = 'https://api.themoviedb.org/3/'
 params = {'api_key': '7ecd6a3ceec1b96921b4647095047e8e'}
 
 
-def get_shows_from_search(query):
+def get_shows_from_search(query, kind='search_query', show_id=None):
     """
     :param query:
     :return: a list of all the API request's results. Each result is a dictionary with the same
     items : 'title', 'date', 'popularity', 'vote_average', 'overview', 'id', 'poster_url'
     """
 
-    if query is None:
-        req = requests.get('https://api.themoviedb.org/3/trending/tv/day', params)
-        # Get the list of today's trending shows with an API call
-    else:
+    if kind == 'search_query':
         params['query'] = query
-        req = requests.get('https://api.themoviedb.org/3/search/tv', params)
+        req = requests.get(api_path + 'search/tv', params)
+    elif kind == 'trending_day':
+        # Get the list of today's trending shows with an API call
+        req = requests.get(api_path + 'trending/tv/day', params)
+    elif kind == 'trending_week':
+        # Get the list of today's trending shows with an API call
+        req = requests.get(api_path + 'trending/tv/week', params)
+    elif kind == 'popular':
+        req = requests.get(api_path + 'tv/popular', params)
+    elif kind == 'top_rated':
+        req = requests.get(api_path + 'tv/top_rated', params)
+    elif kind == 'recommendation' and show_id is not None:
+        req = requests.get(api_path + 'tv/' + str(show_id) + '/recommendations', params)
+    else:
+        print('Please enter a correct request type.')
 
     if not req.ok:
         # print('there was an error in the request : ', req.status_code)

@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, render_template
 
 
 def create_app(test_config=None):
@@ -38,5 +38,10 @@ def create_app(test_config=None):
 
     from . import myshow
     app.register_blueprint(myshow.bp)
+
+    @app.route('/about', methods=('GET',))
+    def about():
+        return render_template('about.html')
+
 
     return app
