@@ -17,7 +17,7 @@
             {% endif %}
         </div>
 
-        <div style="height: 300px;flex-grow: 10">
+        <div style="height: 300px;flex-grow: 12">
 
             {% if session['user_id'] and show.id in session['show_ids'] %}
             <a href="{{ url_for('myfav.rm_from_fav',show_id=show.id, name=show.title ) }}" title="Remove '{{ show.title }}' from favourites" class="hearticon">

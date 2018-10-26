@@ -8,15 +8,15 @@
 {% block content %}
 <article class="result">
     <div class="flex-container">
-        <div class="poster" style="flex-grow: 1">
+        <div class="poster" style="height: 300px;flex-grow: 2">
             {% if season['poster_url'] %}
-            <img src="{{ season['poster_url'] }}" style="width:165px;height:250px;float:center" alt="'{{ season['name'] }}' poster">
+            <img src="{{ season['poster_url'] }}" style="height: 300px;float:center" alt="'{{ season['name'] }}' poster">
             {% else %}
             <img src="https://www.scenebyte.com/images/no_poster.jpg" style="width:165px;height:250px;float:center" alt="No poster available">
             {% endif %}
         </div>
 
-        <div style="flex-grow: 7">
+        <div style="height: 300px;flex-grow: 12">
             <header>
                 <div>
                     <h1>  {{ season['name'] }}  </h1>
@@ -35,7 +35,7 @@
 {% for episode in season.episodes %}
 <article class="result">
     <div style="height:200px" class="flex-container">
-        <div class="poster" style="flex-grow: 2">
+        <div class="poster"  style="flex-grow: 2">
             {% if episode.poster_url %}
             <img src="{{ episode.poster_url }}" style="width:250px;height:141px;margin-top:22px" alt="'{{ episode.name }}' poster">
             {% else %}
@@ -43,15 +43,15 @@
             {% endif %}
         </div>
 
-        <div style="flex-grow: 7">
+        <div style="line-height: 0px;flex-grow: 7">
             <header>
                 <div>
-                    <h1> {{ episode.name }} </a> </h1>
+                    <h1> {{ episode.name }} </h1>
                     <div class="about">Aired on {{ episode.air_date }} | {{ episode.vote_average }} <i class="fa fa-star gradient-icon"></i> </div>
                 </div>
 
             </header>
-            <p class="body">{{ episode.trunc_overview }}</p>
+            <p class="body" style="margin-top:10px;">{{ episode.trunc_overview }}</p>
         </div>
     </div>
 </article>
