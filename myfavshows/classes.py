@@ -10,7 +10,7 @@ class Show:
     def __init__(self, res):
         self._id = res['id']
         self._title = res['name']
-        self._date = res['first_air_date']
+        self._date = res['first_air_date'][:4]
         self._popularity = res['popularity']
         self._vote_average = res['vote_average']
         self._poster_path = res['poster_path']
@@ -117,7 +117,7 @@ class Season:
         self._poster_path = res['poster_path']
         self._poster_url = None
         self._episode_count = len(res['episodes'])
-        self._air_date = res['air_date']
+        self._air_date = res['air_date'][:4]
         self._episodes = []
         for episode in res['episodes']:
             self._episodes += [Episode(episode)]
@@ -171,7 +171,7 @@ class Episode:
 
     def __init__(self, res):
         self._air_date = res['air_date']
-        self._vote_average = res['vote_average']
+        self._vote_average = int(res['vote_average']*10)/10
         self._name = res['name']
         self._poster_path = res['still_path']
         self._poster_url = None

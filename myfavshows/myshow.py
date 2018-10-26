@@ -26,6 +26,8 @@ def get_my_show(show_id):
 @bp.route('/myshow/<int:show_id>/season/<int:season_number>')
 def get_my_season(show_id, season_number):
 
+    show = ShowDetailedView(show_id)
+
     season = Season(show_id, season_number)
 
-    return render_template('myshow/myseason.html', season=season)
+    return render_template('myshow/myseason.html', season=season, show=show)
