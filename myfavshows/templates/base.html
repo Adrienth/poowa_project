@@ -15,7 +15,7 @@
     </h1>
     <ul style="background: #ffffff;">
         {% if session['user_id'] %}
-        <li><span> Welcome {{ session['user_name'].capitalize() }}!</span>
+        <li><span style="color:#377ba8"> {{ session['user_name'].capitalize() }}  <i class="fa fa-user"></i> </span>
         <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
             {% else %}
         <li><a href="{{ url_for('auth.register') }}">Register</a>
