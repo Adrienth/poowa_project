@@ -13,7 +13,6 @@ class APIrequest(Thread):
     shows = {}
     lock = Lock()
 
-
     def run(self):
         APIrequest.lock.acquire()
         show_id = APIrequest.show_ids[APIrequest.pointer]
@@ -31,9 +30,9 @@ class APIrequest(Thread):
         """
         Initialize the parameters before a call
         """
+        APIrequest.show_ids = []
         APIrequest.pointer = 0
         APIrequest.shows = {}
-        APIrequest.show_ids = []
 
 
 class Show:
@@ -152,11 +151,14 @@ class Season:
         self._season_number = res['season_number']
         self._name = res['name']
         self._overview = res['overview']
+        self._trunc_overview = None
         self._poster_path = res['poster_path']
         self._poster_url = None
         self._air_date = res['air_date']
         if 'episode_count' in res:
             self._episode_count = res['episode_count']
+        else:
+            self._episode_count = len(res['episodes'])
 
     def _get_season_number(self):
         return self._season_number
@@ -210,7 +212,6 @@ class SeasonDetailedView(Season):
         Season.__init__(self, res)
         self._show_id = show_id
         self._show_title = show_title
-        self._episode_count = len(res['episodes'])
         self._episodes = []
         for episode in res['episodes']:
             self._episodes += [Episode(episode)]
@@ -221,15 +222,11 @@ class SeasonDetailedView(Season):
     def _get_show_title(self):
         return self._show_title
 
-    def _get_episode_count(self):
-        return self._episode_count
-
     def _get_episodes(self):
         return self._episodes
 
     show_id = property(_get_show_id)
     show_title = property(_get_show_title)
-    episode_count = property(_get_episode_count)
     episodes = property(_get_episodes)
 
 
@@ -243,6 +240,9 @@ class Episode:
         self._poster_url = None
         self._overview = res['overview']
         self._trunc_overview = None
+        self._episode_number = res['episode_number']
+        self._crew = res['crew']
+        self._guest_stars = res['guest_stars']
 
     def _get_name(self):
         return self._name
@@ -251,7 +251,7 @@ class Episode:
         return self._overview
 
     def _get_trunc_overview(self):
-        nb_char = 270
+        nb_char = 200
         view = self._overview
         if len(view) > nb_char:
             view = view[:nb_char] + '...'
@@ -275,6 +275,15 @@ class Episode:
         else:
             return self._air_date
 
+    def _get_episode_number(self):
+        return self._episode_number
+
+    def _get_crew(self):
+        return self._crew
+
+    def _get_guest_stars(self):
+        return self._guest_stars
+
     name = property(_get_name)
     overview = property(_get_overview)
     trunc_overview = property(_get_trunc_overview)
@@ -282,3 +291,36 @@ class Episode:
     poster_url = property(_get_poster_url)
     air_date = property(_get_air_date)
     vote_average = property(_get_vote_average)
+    episode_number = property(_get_episode_number)
+    crew = property(_get_crew)
+    guest_stars = property(_get_guest_stars)
+
+
+class EpisodeDetailedView(Episode):
+
+    def __init__(self, show_title, show_id, season_number, episode_number):
+        req = requests.get('https://api.themoviedb.org/3/tv/' + str(show_id) + '/season/' + str(season_number) +
+                           '/episode/' + str(episode_number), params)
+        res = req.json()
+        Episode.__init__(self, res)
+        self._show_id = show_id
+        self._show_title = show_title
+        self._season_number = season_number
+
+    def _get_show_id(self):
+        return self._show_id
+
+    def _get_show_title(self):
+        return self._show_title
+
+    def _get_season_number(self):
+        return self._season_number
+
+    show_id = property(_get_show_id)
+    show_title = property(_get_show_title)
+    season_number = property(_get_season_number)
+
+
+
+
+

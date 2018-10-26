@@ -9,8 +9,8 @@
 <article class="result">
     <div class="flex-container">
         <div class="poster" style="flex-grow: 1">
-            {% if season['poster_url'] %}
-            <img src="{{ season['poster_url'] }}" style="width:165px;height:250px;float:center" alt="'{{ season['name'] }}' poster">
+            {% if season.poster_url %}
+            <img src="{{ season.poster_url }}" style="width:165px;height:250px;float:center" alt="'{{ season.name }}' poster">
             {% else %}
             <img src="https://www.scenebyte.com/images/no_poster.jpg" style="width:165px;height:250px;float:center" alt="No poster available">
             {% endif %}
@@ -19,12 +19,12 @@
         <div style="flex-grow: 7">
             <header>
                 <div>
-                    <h1>  {{ season['name'] }}  </h1>
-                    <div class="about">Aired in {{ season['air_date'] }} | {{ season['episode_count'] }} episodes </div>
+                    <h1>  {{ season.name }}  </h1>
+                    <div class="about">Aired in {{ season.air_date }} | {{ season.episode_count }} episodes </div>
                 </div>
 
             </header>
-            <p class="body">{{ season['overview'] }}</p>
+            <p class="body">{{ season.overview }}</p>
         </div>
     </div>
 </article>
@@ -46,7 +46,8 @@
         <div style="flex-grow: 7">
             <header>
                 <div>
-                    <h1> {{ episode.name }} </a> </h1>
+                    <h1> <a style="text-decoration:none" href="{{ url_for('myshow.get_my_episode', show_title=season.show_title,
+                     show_id=season.show_id, season_number=season.season_number, episode_number=episode.episode_number) }}"> Episode {{episode.episode_number}} : {{ episode.name }} </a> </h1>
                     <div class="about">Aired on {{ episode.air_date }} | {{ episode.vote_average }} <i class="fa fa-star gradient-icon"></i> </div>
                 </div>
 

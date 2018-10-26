@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1><a  href="{{ url_for('myshow.get_my_season', show_title=episode.show_title, show_id=episode.show_id, season_number=episode.season_number) }}">{% block title %} {{ episode.show_title }} - Season {{episode.season_number}} {% endblock %}</a></h1>
+{{super()}}
+{% endblock %}
+
+{% block content %}
+<article class="result">
+    <div class="flex-container">
+        <div class="poster" style="flex-grow: 1">
+            {% if episode.poster_url %}
+            <img src="{{ episode.poster_url }}" style="width:165px;height:250px;float:center" alt="'{{ episode.name }}' poster">
+            {% else %}
+            <img src="https://www.scenebyte.com/images/no_poster.jpg" style="width:165px;height:250px;float:center" alt="No poster available">
+            {% endif %}
+        </div>
+
+        <div style="flex-grow: 7">
+            <header>
+                <div>
+                    <h1>  Episode {{episode.episode_number}} : {{ episode.name }}  </h1>
+                    <div class="about">Aired in {{ episode.air_date }} </div>
+                </div>
+
+            </header>
+            <p class="body">{{ episode.overview }}</p>
+        </div>
+    </div>
+</article>
+{% endblock %}
