@@ -2,14 +2,14 @@ html { font-family: 'Open Sans', sans-serif; font-weight: 300; background: #ffff
 body { max-width: 960px; margin: 0 auto; background: white; }
 h1 { font-family: 'Open Sans', sans-serif;font-weight: 200; font-size: x-large; color: #2d8a9c; margin: 1rem 0; }
 a { color: #2d8a9c; text-decoration:none }
-hr { border: none; border-top: 1px solid lightgray; }
+hr { border: none;margin-bottom: 15px; }
 nav { background: #ffffff; display: flex; align-items: center; padding: 0 0.5rem; }
 nav h1 { flex: auto; margin: 0; }
 nav h1 a { text-decoration: none; padding: 0.25rem 0.5rem;font-size: xx-large; }
 nav ul  { display: flex; list-style: none; margin: 0; padding: 0; }
 nav ul li a, nav ul li span { display: block; padding: 0.5rem; }
 .content { padding: 0 1rem 1rem; }
-.content > header { border-bottom: 1px solid lightgray; display: flex; align-items: flex-end; }
+.content > header { display: flex; align-items: flex-end; }
 .content > header h1 { flex: auto; margin: 1rem 0 0.25rem 0; }
 .flash { margin: 1em 0; padding: 1em; background: #cae6f6; border: 1px solid #377ba8; }
 .result > header { display: flex; align-items: flex-end; font-size: 0.85em; }
@@ -82,12 +82,6 @@ li a.active {
 input[type=text]:focus, input[type=password]:focus {
   background-color: #ddd;
   outline: none;
-}
-
-/* Overwrite default styles of hr */
-hr {
-  border: 1px solid #f1f1f1;
-  margin-bottom: 25px;
 }
 
 /* Set a style for the submit/register button */
@@ -163,7 +157,7 @@ form.searchbar::after {
   display: flex;
   align-items: stretch;
   background-color: #f1f1f1;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0px 1px 1px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
 .flex-container > div {
@@ -171,9 +165,10 @@ form.searchbar::after {
   width: 100px;
   margin: 8px;
   line-height: 30px;
-  height:250px;
+  height:234px;
 }
 
+.flex-container > div:first-child { margin: 0px;}
 
 .poster {
   margin: 0px;

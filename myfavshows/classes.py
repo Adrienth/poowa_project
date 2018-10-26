@@ -77,7 +77,7 @@ class Show:
         if self._poster_path is None:
             return None
         else:
-            return 'https://image.tmdb.org/t/p/w200' + self._poster_path
+            return 'https://image.tmdb.org/t/p/w300' + self._poster_path
 
     def _get_overview(self):
         return self._overview
