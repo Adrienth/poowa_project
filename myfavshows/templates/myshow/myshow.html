@@ -59,7 +59,7 @@
         <div style="flex-grow: 7">
             <header>
                 <div>
-                    <h1> <a style="text-decoration:none" href="{{ url_for('myshow.get_my_season', show_id=show.id, season_number=season.season_number) }}"> {{ season.name }} </a> </h1>
+                    <h1> <a style="text-decoration:none" href="{{ url_for('myshow.get_my_season', show_title=show.title, show_id=show.id, season_number=season.season_number) }}"> {{ season.name }} </a> </h1>
                     <div class="about">Aired in {{ season.air_date }} | {{ season.episode_count }} episodes </div>
                 </div>
 

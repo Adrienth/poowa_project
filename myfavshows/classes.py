@@ -73,6 +73,7 @@ class ShowDetailedView(Show):
         self._film_maker = res['created_by']
         self._production_companies = res['production_companies']
         self._genres = res['genres']
+        self._next_episode_to_air = res['next_episode_to_air']
         self._number_of_seasons = res['number_of_seasons']
         self._seasons = []
         i = 1
@@ -92,6 +93,9 @@ class ShowDetailedView(Show):
     def _get_genres(self):
         return self._genres[0]['name']
 
+    def _get_next_episode_to_air(self):
+        return self._next_episode_to_air
+
     def _get_number_of_seasons(self):
         return self._number_of_seasons
 
@@ -102,15 +106,17 @@ class ShowDetailedView(Show):
     film_maker = property(_get_film_maker)
     production_companies = property(_get_production_companies)
     genres = property(_get_genres)
+    next_episode_to_air = property(_get_next_episode_to_air)
     number_of_seasons = property(_get_number_of_seasons)
     seasons = property(_get_seasons)
 
 
 class Season:
 
-    def __init__(self, show_id, season_number):
+    def __init__(self, show_id, season_number, show_title=None):
         req = requests.get('https://api.themoviedb.org/3/tv/' + str(show_id) + '/season/' + str(season_number), params)
         res = req.json()
+        self._show_title = show_title
         self._season_number = res['season_number']
         self._name = res['name']
         self._overview = res['overview']
@@ -121,6 +127,9 @@ class Season:
         self._episodes = []
         for episode in res['episodes']:
             self._episodes += [Episode(episode)]
+
+    def _get_show_title(self):
+        return self._show_title
 
     def _get_season_number(self):
         return self._season_number
@@ -156,6 +165,7 @@ class Season:
     def _get_episodes(self):
         return self._episodes
 
+    show_title = property(_get_show_title)
     season_number = property(_get_season_number)
     name = property(_get_name)
     overview = property(_get_overview)
