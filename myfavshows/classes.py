@@ -252,7 +252,7 @@ class Episode:
         return self._overview
 
     def _get_trunc_overview(self):
-        nb_char = 500
+        nb_char = 200
         view = self._overview
         if len(view) > nb_char:
             view = view[:nb_char] + '...'
