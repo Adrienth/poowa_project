@@ -26,6 +26,7 @@ header .action { display: block; float: right; margin-bottom: 0.3rem;margin-left
 .content textarea { min-height: 12em; resize: vertical; }
 input.danger { color: #cc2f2e; }
 input[type=submit] { align-self: start; min-width: 10em; }
+.notification { float:right; font-size: 10px; font-style: italic; color: white; background-color: #000080; padding: 0px 5px 0px 5px; margin-right: 20px; border-radius: 5px; }
 
 
 

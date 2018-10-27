@@ -26,7 +26,7 @@
 
 
 {% if session.get('last_show_name') %}
-<header><h1>Because you like {{ session.get('last_show_name') }}...</h1></header>
+<header><h1>Because you watched {{ session.get('last_show_name') }}, you will probably like...</h1></header>
 {% else %}
 <header><h1>Today's Trending</h1></header>
 {% endif %}
