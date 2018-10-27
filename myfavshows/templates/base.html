@@ -75,7 +75,7 @@
                 <div>
                     {% if show.next_episode_to_air %}
                     <h1> <a href="{{ url_for('myshow.get_my_show', show_id=show.id) }}"> {{ show.title }} </a>
-                        <span class="notif"> New Episode Soon! </span> </h1>
+                        <span class="notification"> New Episode Soon! </span> </h1>
                     {% else %}
                     <h1> <a href="{{ url_for('myshow.get_my_show', show_id=show.id) }}"> {{ show.title }} </a> </h1>
                     {% endif %}
