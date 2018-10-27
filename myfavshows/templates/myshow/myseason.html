@@ -16,7 +16,7 @@
             {% endif %}
         </div>
 
-        <div style="height: 300px;flex-grow: 12">
+        <div style="flex-grow: 11">
             <header>
                 <div>
                     <h1>  {{ season.name }}  </h1>
@@ -37,7 +37,7 @@
     <div style="height:200px" class="flex-container">
         <div class="poster" style="flex-grow: 2">
             {% if episode.poster_url %}
-            <img src="{{ episode.poster_url }}" style="width:250px;height:141px;margin-top:22px" alt="'{{ episode.name }}' poster">
+            <img src="{{ episode.poster_url }}" style="width:250px;height:141px;margin-top:30px" alt="'{{ episode.name }}' poster">
             {% else %}
             <img src="{{ url_for('static', filename='image-not-available.png')}}" style="width:250px;height:141px;margin-top:22px" alt="No poster available">
             {% endif %}

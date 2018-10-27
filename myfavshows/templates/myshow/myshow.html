@@ -17,7 +17,7 @@
             {% endif %}
         </div>
 
-        <div style="height: 300px;flex-grow: 12">
+        <div style="flex-grow: 11">
 
             {% if session['user_id'] and show.id in session['show_ids'] %}
             <a href="{{ url_for('myfav.rm_from_fav',show_id=show.id, name=show.title ) }}" title="Remove '{{ show.title }}' from favourites" class="hearticon">
@@ -31,7 +31,7 @@
             <header>
                 <div>
                     {% if show.next_episode_to_air %}
-                    <h1> <a href="{{ url_for('myshow.get_my_show', show_id=show.id) }}"> {{ show.title }} </a> <span style="float:right; color:red"> New episodes coming </span> </h1>
+                    <h1> <a href="{{ url_for('myshow.get_my_show', show_id=show.id) }}"> {{ show.title }} </a> <span class="notif"> New Episode Soon! </span> </h1>
                     {% else %}
                     <h1> <a href="{{ url_for('myshow.get_my_show', show_id=show.id) }}"> {{ show.title }} </a> </h1>
                     {% endif %}
