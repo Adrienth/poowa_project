@@ -20,7 +20,7 @@ def search():
         if error is not None:
             flash(error)
         else:
-            return redirect(url_for('search.get_results', query=title))
+            return redirect(url_for('search.get_results', query=title, page=1))
 
     shows_to_session()
     if ('user_id' in session) and (len(session['show_ids']) > 0):
@@ -35,8 +35,8 @@ def search():
     return render_template('search/search.html', shows=shows)
 
 
-@bp.route('/results/<query>', methods=('GET', 'POST'))
-def get_results(query):
+@bp.route('/results/<query>/<int:page>', methods=('GET', 'POST'))
+def get_results(query, page):
 
     if request.method == 'POST':
         title = request.form['title']
@@ -48,7 +48,7 @@ def get_results(query):
         if error is not None:
             flash(error)
         else:
-            return redirect(url_for('search.get_results', query=title))
+            return redirect(url_for('search.get_results', query=title, page=1))
 
     if 'user_id' in session:
         shows_to_session()
@@ -56,9 +56,9 @@ def get_results(query):
     if query is None:
         query = 'house'
 
-    shows = get_shows_from_search(query, 1)
+    shows, total_pages, query = get_shows_from_search(query, page)
 
-    return render_template('search/results.html', shows=shows)
+    return render_template('search/results.html', shows=shows, total_pages=total_pages, query=query)
 
 
 @bp.route('/trending', methods=('GET',))

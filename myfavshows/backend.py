@@ -75,7 +75,7 @@ def get_shows_from_search(query, page):
     else:
         for res in req_json["results"]:
             results += [Show(res)]
-        return results
+        return results, req_json["total_pages"], query
 
 
 def get_shows_from_trending_week(page):

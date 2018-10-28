@@ -1,6 +1,6 @@
 html { font-family: 'Open Sans', sans-serif; font-weight: 300; background: #ffffff; padding: 1rem; }
 body { max-width: 960px; margin: 0 auto; background: white; }
-h1 { font-family: 'Open Sans', sans-serif;font-weight: 200; font-size: x-large; color: #2d8a9c; margin: 1rem 0; }
+h1 { font-family: 'Open Sans', sans-serif; font-weight: 200; font-size: x-large; color: #2d8a9c; margin: 1rem 0; }
 a { color: #2d8a9c; text-decoration:none }
 hr { border: none;margin-bottom: 15px; }
 nav { background: #ffffff; display: flex; align-items: center; padding: 0 0.5rem; }
@@ -11,6 +11,7 @@ nav ul li a, nav ul li span { display: block; padding: 0.5rem; }
 .content { padding: 0 1rem 1rem; }
 .content > header { display: flex; align-items: flex-end; }
 .content > header h1 { flex: auto; margin: 1rem 0 0.25rem 0; }
+.content > header > div  { float: right; color: #2d8a9c ; font-size: 11px; margin-bottom: 10px; }
 .flash { margin: 1em 0; padding: 1em; background: #cae6f6; border: 1px solid #377ba8; }
 .result > header { display: flex; align-items: flex-end; font-size: 0.85em; }
 .result > header > div:first-of-type { flex: auto; }
@@ -27,7 +28,7 @@ header .action { display: block; float: right; margin-bottom: 0.3rem;margin-left
 input.danger { color: #cc2f2e; }
 input[type=submit] { align-self: start; min-width: 10em; }
 .notification { float:right; font-size: 12px; font-style: italic; color: white; background-color: #000080; padding: 0px 5px 0px 5px; margin-right: 30px; border-radius: 5px; }
-.notif {float:right; color:red;margin-right: 15px;font-size: smaller;font-style: italic;}
+.notif {float:right; color:red; margin-right: 15px;font-size: smaller;font-style: italic;}
 
 /* Navigation bar
 ==========================*/
