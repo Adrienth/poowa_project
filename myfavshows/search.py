@@ -58,7 +58,7 @@ def get_results(query, page):
 
     shows, total_pages, query = get_shows_from_search(query, page)
 
-    return render_template('search/results.html', shows=shows, total_pages=total_pages, query=query)
+    return render_template('search/results.html', shows=shows, current_page=page, total_pages=total_pages, query=query)
 
 
 @bp.route('/trending', methods=('GET',))
