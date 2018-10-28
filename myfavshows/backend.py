@@ -119,7 +119,7 @@ def get_shows_from_trending_week(page):
     results = []
     for res in req_json["results"]:
         results += [Show(res)]
-    return results, req_json["total_pages"]
+    return results
 
 
 def get_shows_from_top_rated(page):

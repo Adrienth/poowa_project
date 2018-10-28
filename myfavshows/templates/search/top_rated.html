@@ -8,7 +8,7 @@
 {% block navbar %}
 <ul>
     <li><a href="{{ url_for('search.search')}}">Search Show</a></li>
-    <li><a href="{{ url_for('search.get_trending', page=1)}}">Trending</a></li>
+    <li><a href="{{ url_for('search.get_trending')}}">Trending</a></li>
     <li><a href="{{ url_for('search.get_popular')}}">Popular</a></li>
     <li><a class="active" href="{{ url_for('search.get_top_rated')}}">Top rated</a></li>
     <li style="float:right;"><a href="{{ url_for('myfav.get_my_fav')}}">My Favourites</a></li>

@@ -3,27 +3,13 @@
 {% block header %}
 <h1>{% block title %}This week's trends{% endblock %}</h1>
 {{ super() }}
-        {% if total_pages %}
-        <div>
-            Pages :
-            {% for i in range(1, total_pages + 1) %}
-                {% if i != current_page %}
-                <a href="{{ url_for('search.get_trending', page=i) }}">{{i}}
-                </a> {% if not loop.last %} - {% endif %}
-                {% else %}
-                <a style="text-decoration:underline"
-                   href="{{ url_for('search.get_trending', page=i) }}">{{i}}</a> {% if not loop.last %} - {% endif %}
-                {% endif %}
-            {% endfor %}
-        </div>
-        {% endif %}
 {% endblock %}
 
 
 {% block navbar %}
 <ul>
     <li><a href="{{ url_for('search.search')}}">Search Show</a></li>
-    <li><a class="active" href="{{ url_for('search.get_trending', page=1)}}">Trending</a></li>
+    <li><a class="active" href="{{ url_for('search.get_trending')}}">Trending</a></li>
     <li><a href="{{ url_for('search.get_popular')}}">Popular</a></li>
     <li><a href="{{ url_for('search.get_top_rated')}}">Top rated</a></li>
     <li style="float:right;"><a href="{{ url_for('myfav.get_my_fav')}}">My Favourites</a></li>
