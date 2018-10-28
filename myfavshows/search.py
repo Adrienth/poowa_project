@@ -22,23 +22,33 @@ def search():
         else:
             return redirect(url_for('search.get_results', query=title))
 
-    if 'user_id' in session:
-        shows_to_session()
-        if len(session['show_ids']) > 0:
-            last_show_id = session['show_ids'][-1]
-            shows = get_shows_from_search(None, kind='recommendation', show_id=last_show_id)
-            session['last_show_name'] = ShowDetailedView(last_show_id).title
-            # print(session.get('test'))
-            return render_template('search/search.html', shows=shows)
+    shows_to_session()
+    if ('user_id' in session) and (len(session['show_ids']) > 0):
+        last_show_id = session['show_ids'][-1]
+        shows = get_shows_from_recommandation(last_show_id, 1)
+        session['last_show_name'] = ShowDetailedView(last_show_id).title
+        return render_template('search/search.html', shows=shows)
     else:
         # Get the list of today's trending shows with an API call
-        shows = get_shows_from_search(None, kind='trending_day')
+        shows = get_shows_from_trending_day(1)
 
     return render_template('search/search.html', shows=shows)
 
 
-@bp.route('/results/<query>', methods=('GET',))
+@bp.route('/results/<query>', methods=('GET', 'POST'))
 def get_results(query):
+
+    if request.method == 'POST':
+        title = request.form['title']
+        error = None
+
+        if not title:
+            error = 'A TV show name is required.'
+
+        if error is not None:
+            flash(error)
+        else:
+            return redirect(url_for('search.get_results', query=title))
 
     if 'user_id' in session:
         shows_to_session()
@@ -46,7 +56,7 @@ def get_results(query):
     if query is None:
         query = 'house'
 
-    shows = get_shows_from_search(query)
+    shows = get_shows_from_search(query, 1)
 
     return render_template('search/results.html', shows=shows)
 
@@ -57,7 +67,7 @@ def get_trending():
         shows_to_session()
 
     # Get the list of today's trending shows with an API call
-    shows = get_shows_from_search(None, kind='trending_week')
+    shows = get_shows_from_trending_week(1)
 
     return render_template('search/trending.html', shows=shows)
 
@@ -68,7 +78,7 @@ def get_popular():
         shows_to_session()
 
     # Get the list of today's trending shows with an API call
-    shows = get_shows_from_search(None, kind='popular')
+    shows = get_shows_from_popular(1)
 
     return render_template('search/popular.html', shows=shows)
 
@@ -79,6 +89,6 @@ def get_top_rated():
         shows_to_session()
 
     # Get the list of today's trending shows with an API call
-    shows = get_shows_from_search(None, kind='top_rated')
+    shows = get_shows_from_top_rated(1)
 
     return render_template('search/top_rated.html', shows=shows)
