@@ -71,7 +71,7 @@ def get_shows_from_search(query, page):
         flash("""
                 No results were found for your search.
                 Can you rephrase your request please?""")
-        return results
+        return results, None, query
     else:
         for res in req_json["results"]:
             results += [Show(res)]
