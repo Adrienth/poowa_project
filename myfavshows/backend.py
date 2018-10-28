@@ -53,6 +53,35 @@ params = {'api_key': '7ecd6a3ceec1b96921b4647095047e8e'}
 #             results += [Show(res)]
 #         return results
 
+def get_shows_from_recommandation(show_id, page):
+    params['page'] = page
+    req = requests.get(api_path + 'tv/' + str(show_id) + '/recommendations', params)
+    if not req.ok:
+        # print('there was an error in the request : ', req.status_code)
+        pass
+
+    req_json = req.json()
+
+    results = []
+    for res in req_json["results"]:
+        results += [Show(res)]
+    return results
+
+
+def get_shows_from_trending_day(page):
+    params['page'] = page
+    req = requests.get(api_path + 'trending/tv/day', params)
+    if not req.ok:
+        # print('there was an error in the request : ', req.status_code)
+        pass
+
+    req_json = req.json()
+
+    results = []
+    for res in req_json["results"]:
+        results += [Show(res)]
+    return results
+
 
 def get_shows_from_search(query, page):
 
@@ -90,7 +119,7 @@ def get_shows_from_trending_week(page):
     results = []
     for res in req_json["results"]:
         results += [Show(res)]
-    return results
+    return results, req_json["total_pages"]
 
 
 def get_shows_from_top_rated(page):
@@ -105,7 +134,7 @@ def get_shows_from_top_rated(page):
     results = []
     for res in req_json["results"]:
         results += [Show(res)]
-    return results
+    return results, req_json["total_pages"]
 
 
 def get_shows_from_popular(page):
@@ -120,37 +149,7 @@ def get_shows_from_popular(page):
     results = []
     for res in req_json["results"]:
         results += [Show(res)]
-    return results
-
-
-def get_shows_from_trending_day(page):
-    params['page'] = page
-    req = requests.get(api_path + 'trending/tv/day', params)
-    if not req.ok:
-        # print('there was an error in the request : ', req.status_code)
-        pass
-
-    req_json = req.json()
-
-    results = []
-    for res in req_json["results"]:
-        results += [Show(res)]
-    return results
-
-
-def get_shows_from_recommandation(show_id, page):
-    params['page'] = page
-    req = requests.get(api_path + 'tv/' + str(show_id) + '/recommendations', params)
-    if not req.ok:
-        # print('there was an error in the request : ', req.status_code)
-        pass
-
-    req_json = req.json()
-
-    results = []
-    for res in req_json["results"]:
-        results += [Show(res)]
-    return results
+    return results, req_json["total_pages"]
 
 
 def shows_to_session():
