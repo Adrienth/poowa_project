@@ -61,15 +61,15 @@ def get_results(query, page):
     return render_template('search/results.html', shows=shows, current_page=page, total_pages=total_pages, query=query)
 
 
-@bp.route('/trending', methods=('GET',))
-def get_trending():
+@bp.route('/trending/<int:page>', methods=('GET',))
+def get_trending(page):
     if 'user_id' in session:
         shows_to_session()
 
     # Get the list of today's trending shows with an API call
-    shows = get_shows_from_trending_week(1)
+    shows, total_pages = get_shows_from_trending_week(page)
 
-    return render_template('search/trending.html', shows=shows)
+    return render_template('search/trending.html', shows=shows, current_page=page, total_pages=total_pages)
 
 
 @bp.route('/popular', methods=('GET',))
