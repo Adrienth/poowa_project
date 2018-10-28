@@ -39,28 +39,7 @@
 <section class="content">
     <header>
         {% block header %}{% endblock %}
-        {% if total_pages %}
-        <div class="pagination">
-            {% if current_page > 1 %}
-            <a href="{{ url_for('search.get_results', query=query, page=current_page-1) }}">❮</a>
-            {% endif %}
-            <a>{{ current_page }}</a>
-            {% if current_page < total_pages %}
-            <a href="{{ url_for('search.get_results', query=query, page=current_page+1) }}">❯</a>
-            {% endif %}
-            <!--Pages :
-            {% for i in range(1, total_pages + 1) %}
-                {% if i != current_page %}
-                <a href="{{ url_for('search.get_results', query=query, page=i) }}">{{i}}
-                </a> {% if not loop.last %} - {% endif %}
-                {% else %}
-                <a style="text-decoration:underline"
-                   href="{{ url_for('search.get_results', query=query, page=i) }}">{{i}}</a> {% if not loop.last %} - {% endif %}
-                {% endif %}
-            {% endfor %}
-            -->
-        </div>
-        {% endif %}
+        {% block pagination %}{% endblock %}
     </header>
 
     {% for message in get_flashed_messages() %}
