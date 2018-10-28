@@ -25,12 +25,12 @@ def search():
     shows_to_session()
     if ('user_id' in session) and (len(session['show_ids']) > 0):
         last_show_id = session['show_ids'][-1]
-        shows, total_pages, content = get_shows_from_search(None, kind='recommendation', show_id=last_show_id)
+        shows, total_pages = get_shows_from_search(None, kind='recommendation', show_id=last_show_id)
         session['last_show_name'] = ShowDetailedView(last_show_id).title
         return render_template('search/search.html', shows=shows)
 
     # Get the list of today's trending shows with an API call
-    shows = shows, total_pages, content = get_shows_from_search(None, kind='trending_day')
+    shows, total_pages = get_shows_from_search(None, kind='trending_day')
 
     return render_template('search/search.html', shows=shows)
 
@@ -56,7 +56,7 @@ def get_results(query, page):
     if query is None:
         query = 'house'
 
-    shows, total_pages, content = get_shows_from_search(query, page=page)
+    shows, total_pages = get_shows_from_search(query, page=page)
 
     return render_template('search/results.html', shows=shows, current_page=page, total_pages=total_pages, query=query)
 
@@ -68,7 +68,7 @@ def get_trending(page):
         shows_to_session()
 
     # Get the list of today's trending shows with an API call
-    shows, total_pages, content = get_shows_from_search(None, kind='trending_week', page=page)
+    shows, total_pages = get_shows_from_search(None, kind='trending_week', page=page)
 
     return render_template('search/trending.html', shows=shows, current_page=page, total_pages=total_pages)
 
@@ -80,7 +80,7 @@ def get_popular(page):
         shows_to_session()
 
     # Get the list of today's trending shows with an API call
-    shows, total_pages, content = get_shows_from_search(None, kind='popular', page=page)
+    shows, total_pages = get_shows_from_search(None, kind='popular', page=page)
 
     return render_template('search/popular.html', shows=shows, current_page=page, total_pages=total_pages)
 
@@ -92,6 +92,6 @@ def get_top_rated(page):
         shows_to_session()
 
     # Get the list of today's trending shows with an API call
-    shows, total_pages, content = get_shows_from_search(None, kind='top_rated', page=page)
+    shows, total_pages = get_shows_from_search(None, kind='top_rated', page=page)
 
     return render_template('search/top_rated.html', shows=shows, current_page=page, total_pages=total_pages)

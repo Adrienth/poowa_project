@@ -45,14 +45,11 @@ def get_shows_from_search(query, kind='search_query', show_id=None, page=1):
     results = []
     if req_json["total_results"] == 0:
         flash("No results were found for your search.")
-        return results
 
     for res in req_json["results"]:
         results += [Show(res)]
 
-    content = {'kind': kind, 'query': query}
-
-    return results, req_json["total_results"], content
+    return results, req_json["total_pages"]
 
 # def get_shows_from_recommandation(show_id, page):
 #     params['page'] = page
