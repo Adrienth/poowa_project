@@ -1,5 +1,24 @@
 {% extends 'base.html' %}
 
+{% block script %}
+<script type="text/javascript">
+    document.onkeydown = function(e) {
+    switch (e.keyCode) {
+        case 37:
+            if ( {{ current_page }} > 1) {
+                window.location.replace("{{ url_for('search.get_results', query=query, page=current_page-1) }}");
+            };
+            break;
+        case 39:
+            if ( {{ current_page }} < {{ total_pages }}) {
+                window.location.replace("{{ url_for('search.get_results', query=query, page=current_page+1) }}");
+            };
+            break;
+    }
+};
+</script>
+{% endblock %}
+
 {% block header %}
 <h1>{% block title %}Search results{% endblock %}</h1>
 {{ super() }}
