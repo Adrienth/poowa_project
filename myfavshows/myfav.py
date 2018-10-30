@@ -13,6 +13,7 @@ bp = Blueprint('myfav', __name__)
 
 params = {'api_key': '7ecd6a3ceec1b96921b4647095047e8e'}
 
+
 @bp.route('/myfav')
 @login_required
 def get_my_fav():
@@ -25,6 +26,7 @@ def get_my_fav():
     shows = make_multi_requests(session['show_ids'])
 
     return render_template('myfav/myfav.html', shows=shows)
+
 
 @bp.route('/addtofav/<int:show_id>/<name>')
 @login_required

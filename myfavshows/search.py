@@ -20,7 +20,7 @@ def search():
         if error is not None:
             flash(error)
         else:
-            return redirect(url_for('search.get_results', query=title, page=1))
+            return redirect(url_for('search.get_results', query=title))
 
     shows_to_session()
     if ('user_id' in session) and (len(session['show_ids']) > 0):
@@ -35,6 +35,7 @@ def search():
     return render_template('search/search.html', shows=shows)
 
 
+@bp.route('/results/<query>', defaults={'page': 1}, methods=('GET', 'POST'))
 @bp.route('/results/<query>/<int:page>', methods=('GET', 'POST'))
 def get_results(query, page):
 
@@ -48,7 +49,7 @@ def get_results(query, page):
         if error is not None:
             flash(error)
         else:
-            return redirect(url_for('search.get_results', query=title, page=1))
+            return redirect(url_for('search.get_results', query=title))
 
     if 'user_id' in session:
         shows_to_session()

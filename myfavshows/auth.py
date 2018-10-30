@@ -1,4 +1,6 @@
 import functools
+import socket
+import socket
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
@@ -67,6 +69,7 @@ def login():
             session['user_id'] = user['id']
             session['user_name'] = username
             flash('Hi %s, welcome back to MyFavShows!' % username.capitalize())
+
             return redirect(url_for('search.search'))
 
         flash(error)
@@ -85,6 +88,7 @@ def load_logged_in_user():
             'SELECT * FROM user WHERE id = ?', (user_id,)
         ).fetchone()
     return None
+
 
 @bp.route('/logout')
 def logout():
