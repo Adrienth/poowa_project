@@ -24,6 +24,7 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    # App context imports
     from . import db
     db.init_app(app)
 
@@ -41,6 +42,12 @@ def create_app(test_config=None):
 
     @app.route('/about', methods=('GET',))
     def about():
+        """About page"""
         return render_template('about.html')
+
+    @app.route('/error', methods=('GET',))
+    def error():
+        """Error occurance page"""
+        return render_template('error.html')
 
     return app

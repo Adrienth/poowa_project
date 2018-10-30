@@ -1,17 +1,15 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for, session
+    Blueprint, render_template, session
 )
-
 from myfavshows.backend import *
 from myfavshows.classes import *
-
-import requests
 
 bp = Blueprint('myshow', __name__)
 
 
 @bp.route('/myshow/<int:show_id>')
 def get_my_show(show_id):
+    """"""
     if 'user_id' in session:
         shows_to_session()
 

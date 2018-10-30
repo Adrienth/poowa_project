@@ -18,7 +18,8 @@ params = {'api_key': '7ecd6a3ceec1b96921b4647095047e8e'}
 @login_required
 def get_my_fav():
     """
-    Gets the favourite shows' ids and queries the API in multithreading
+    Gets the user's favourite shows' ids and queries the API in multithreading to get their information
+    :return: the myfav.html templates with all the favourite shows
     """
 
     shows_to_session()
@@ -31,7 +32,12 @@ def get_my_fav():
 @bp.route('/addtofav/<int:show_id>/<name>')
 @login_required
 def add_to_fav(show_id, name):
-
+    """
+    Adds the given show_id to the users favourites in the database and redirects to the last page
+    :param show_id: the show_id
+    :param name: the name of the show
+    :return: the last page
+    """
     db = get_db()
     db.execute(
         'INSERT INTO shows_users (show_id, user_id)'
@@ -47,6 +53,12 @@ def add_to_fav(show_id, name):
 @bp.route('/rmfromfav/<int:show_id>/<name>')
 @login_required
 def rm_from_fav(show_id, name):
+    """
+    Removes the given showid from the users favourites in the database and redirects to the last page
+    :param show_id: the show_id
+    :param name: the name of the show
+    :return: the last page
+    """
 
     db = get_db()
     db.execute(
