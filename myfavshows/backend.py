@@ -2,16 +2,21 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for, session
 )
 
-import requests
+import requests, werkzeug
 from myfavshows.db import get_db
 from myfavshows.classes import *
 
+# Parameters that are used several times in the code below
 api_path = 'https://api.themoviedb.org/3/'
 params = {'api_key': '7ecd6a3ceec1b96921b4647095047e8e'}
 
 
 def get_shows_from_search(query, kind='search_query', show_id=None, page=1):
     """
+    This function handles the different API calls and return the results as a dict
+
+    The different API calls have to be specified in the kind parameter, possibilities are : 'search_query' (default),
+    'trending_day','trending_week','popular','top_rated','recommendation'
     :params query, kind, show_id, page:
     :return: a list of all the API request's results. Each result is a dictionary with the same
     items : 'title', 'date', 'popularity', 'vote_average', 'overview', 'id', 'poster_url'
@@ -37,8 +42,8 @@ def get_shows_from_search(query, kind='search_query', show_id=None, page=1):
         print('Please enter a correct request type.')
 
     if not req.ok:
-        # print('there was an error in the request : ', req.status_code)
-        pass
+        print('there was an error in the request : ', req.status_code)
+        return None
 
     req_json = req.json()
 
@@ -50,104 +55,6 @@ def get_shows_from_search(query, kind='search_query', show_id=None, page=1):
         results += [Show(res)]
 
     return results, req_json["total_pages"]
-
-# def get_shows_from_recommandation(show_id, page):
-#     params['page'] = page
-#     req = requests.get(api_path + 'tv/' + str(show_id) + '/recommendations', params)
-#     if not req.ok:
-#         # print('there was an error in the request : ', req.status_code)
-#         pass
-#
-#     req_json = req.json()
-#
-#     results = []
-#     for res in req_json["results"]:
-#         results += [Show(res)]
-#     return results
-#
-#
-# def get_shows_from_trending_day(page):
-#     params['page'] = page
-#     req = requests.get(api_path + 'trending/tv/day', params)
-#     if not req.ok:
-#         # print('there was an error in the request : ', req.status_code)
-#         pass
-#
-#     req_json = req.json()
-#
-#     results = []
-#     for res in req_json["results"]:
-#         results += [Show(res)]
-#     return results
-#
-#
-# def get_shows_from_search(query, page):
-#
-#     params['query'] = query
-#     params['page'] = page
-#     req = requests.get(api_path + 'search/tv', params)
-#
-#     if not req.ok:
-#         # print('there was an error in the request : ', req.status_code)
-#         pass
-#
-#     req_json = req.json()
-#
-#     results = []
-#     if req_json["total_results"] == 0:
-#         flash("""
-#                 No results were found for your search.
-#                 Can you rephrase your request please?""")
-#         return results, None, query
-#     else:
-#         for res in req_json["results"]:
-#             results += [Show(res)]
-#         return results, req_json["total_pages"], query
-#
-#
-# def get_shows_from_trending_week(page):
-#     params['page'] = page
-#     req = requests.get(api_path + 'trending/tv/week', params)
-#     if not req.ok:
-#         # print('there was an error in the request : ', req.status_code)
-#         pass
-#
-#     req_json = req.json()
-#
-#     results = []
-#     for res in req_json["results"]:
-#         results += [Show(res)]
-#     return results
-#
-#
-# def get_shows_from_top_rated(page):
-#     params['page'] = page
-#     req = requests.get(api_path + 'tv/top_rated', params)
-#     if not req.ok:
-#         # print('there was an error in the request : ', req.status_code)
-#         pass
-#
-#     req_json = req.json()
-#
-#     results = []
-#     for res in req_json["results"]:
-#         results += [Show(res)]
-#     return results
-#
-#
-# def get_shows_from_popular(page):
-#     params['page'] = page
-#     req = requests.get(api_path + 'tv/popular', params)
-#     if not req.ok:
-#         # print('there was an error in the request : ', req.status_code)
-#         pass
-#
-#     req_json = req.json()
-#
-#     results = []
-#     for res in req_json["results"]:
-#         results += [Show(res)]
-#     return results
 
 
 def shows_to_session():
@@ -185,6 +92,7 @@ def make_multi_requests(show_ids):
         temp.append(show_ids[-(i+1)])
     show_ids = temp
 
+    # lets launch all the API call threads
     APIrequest.initiate()
     APIrequest.show_ids = show_ids
     threads = []

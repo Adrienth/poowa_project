@@ -13,8 +13,10 @@ class APIrequest(Thread):
     shows = {}
     lock = Lock()
 
-
     def run(self):
+        """
+        The threads acquire a show_id, launch an API call and store the result
+        """
         APIrequest.lock.acquire()
         show_id = APIrequest.show_ids[APIrequest.pointer]
         APIrequest.pointer += 1

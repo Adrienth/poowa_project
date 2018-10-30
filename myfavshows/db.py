@@ -6,6 +6,7 @@ from flask.cli import with_appcontext
 
 
 def get_db():
+    """Connects the database to the app through the g context"""
     if 'db' not in g:
         g.db = sqlite3.connect(
             current_app.config['DATABASE'],
@@ -16,7 +17,8 @@ def get_db():
     return g.db
 
 
-def close_db(e=None):
+def close_db():
+    """Deletes le database from context and closes it"""
     db = g.pop('db', None)
 
     if db is not None:
@@ -24,6 +26,7 @@ def close_db(e=None):
 
 
 def init_db():
+    """Loads the database, clears it and create new tables"""
     db = get_db()
 
     with current_app.open_resource('schema.sql') as f:
@@ -37,6 +40,8 @@ def init_db_command():
     init_db()
     click.echo('Initialized the database.')
 
+
 def init_app(app):
+    """Sets the teardown context and the cli command for the app"""
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
