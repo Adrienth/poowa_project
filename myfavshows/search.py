@@ -84,7 +84,6 @@ def get_trending(page):
     except (KeyError, TypeError):
         return redirect(url_for('error'))
 
-
     return render_template('search/trending.html', shows=shows, current_page=page, total_pages=total_pages)
 
 

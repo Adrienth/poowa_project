@@ -17,8 +17,8 @@ def get_db():
     return g.db
 
 
-def close_db():
-    """Deletes le database from context and closes it"""
+def close_db(e=None):
+    """Deletes the database from context and closes it"""
     db = g.pop('db', None)
 
     if db is not None:

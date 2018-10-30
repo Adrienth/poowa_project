@@ -45,7 +45,7 @@ class Show:
 
     def __init__(self, res):
         """
-        Each Show's object is built from one of the results "res" of an API request returning several shows.
+        Each Show's object is built from one of the results "res" of an API call returning several shows.
         """
         self._id = res['id']
         self._title = res['name']
@@ -113,8 +113,8 @@ class ShowDetailedView(Show):
 
     def __init__(self, show_id):
         """
-        Each ShowDetailedView's object is built from the result of an API request using the "show_id".
-        Each ShowDetailedView's object is more detailed than the Show's objects.
+        Each ShowDetailedView's object is built from the result of an API call using "show_id" parameter.
+        Each ShowDetailedView's object is more detailed than the Show's objects because the API call is more specific.
         """
         req = requests.get('https://api.themoviedb.org/3/tv/' + str(show_id), params)
         res = req.json()
@@ -178,7 +178,7 @@ class Season:
 
     def __init__(self, res):
         """
-        Each Season's object is built from one of the results "res" of an API request returning several seasons.
+        Each Season's object is built from one of the results "res" of an API call returning several seasons.
         """
         self._season_number = res['season_number']
         self._name = res['name']
@@ -244,9 +244,10 @@ class SeasonDetailedView(Season):
 
     def __init__(self, show_title, show_id, season_number):
         """
-        Each SeasonDetailedView's object is built from the result of an API request using the "show_id"
-        and the "season_number".
-        Each SeasonDetailedView's object is more detailed than the Season's objects.
+        Each SeasonDetailedView's object is built from the result of an API call using "show_id" and
+        "season_number" parameters.
+        Each SeasonDetailedView's object is more detailed than the Season's objects because the API call is
+        more specific.
         """
         req = requests.get('https://api.themoviedb.org/3/tv/' + str(show_id) + '/season/' + str(season_number), params)
         res = req.json()
@@ -282,7 +283,7 @@ class Episode:
 
     def __init__(self, res):
         """
-        Each Episode's object is built from one of the results "res" of an API request returning several episodes.
+        Each Episode's object is built from one of the results "res" of an API call returning several episodes.
         """
         self._air_date = res['air_date']
         self._vote_average = int(res['vote_average']*10)/10
@@ -349,15 +350,16 @@ class Episode:
 
 class EpisodeDetailedView(Episode):
     """
-    The EpisodeDetailedView class, each instance will correspond to a episode.
+    The EpisodeDetailedView class, each instance will correspond to an episode.
     This class inherits from the Episode class.
     """
 
     def __init__(self, show_title, show_id, season_number, episode_number):
         """
-        Each EpisodeDetailedView's object is built from the result of an API request using the "show_id",
-        the "season_number" and the "episode_number".
-        Each EpisodeDetailedView's object is more detailed than the Epsiode's objects.
+        Each EpisodeDetailedView's object is built from the result of an API call using "show_id", "season_number" and
+        "episode_number" parameters.
+        Each EpisodeDetailedView's object is more detailed than the Epsiode's objects because the API call is
+        more specific.
         """
         req = requests.get('https://api.themoviedb.org/3/tv/' + str(show_id) + '/season/' + str(season_number) +
                            '/episode/' + str(episode_number), params)

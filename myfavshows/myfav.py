@@ -54,7 +54,7 @@ def add_to_fav(show_id, name):
 @login_required
 def rm_from_fav(show_id, name):
     """
-    Removes the given showid from the users favourites in the database and redirects to the last page
+    Removes the given show_id from the users favourites in the database and redirects to the last page
     :param show_id: the show_id
     :param name: the name of the show
     :return: the last page

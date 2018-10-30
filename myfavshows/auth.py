@@ -33,7 +33,7 @@ def register():
         elif db.execute(
                 'SELECT id FROM user WHERE username = ?', (username,)
         ).fetchone() is not None:
-            error = 'User {} is already registered.'.format(username)
+            error = 'The username "{}" is already registered. Please choose another one'.format(username)
 
         if error is None:
             # storing the new user information in the db
@@ -71,6 +71,7 @@ def login():
             error = 'Incorrect password.'
 
         if error is None:
+            # storing user information in the object "session"
             session.clear()
             session['user_id'] = user['id']
             session['user_name'] = username

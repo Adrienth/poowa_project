@@ -13,13 +13,10 @@ params = {'api_key': '7ecd6a3ceec1b96921b4647095047e8e'}
 
 def get_shows_from_search(query, kind='search_query', show_id=None, page=1):
     """
-    This function handles the different API calls and return the results as a dict
-
-    The different API calls have to be specified in the kind parameter, possibilities are : 'search_query' (default),
+    This function handles the different API calls and returns the results.
+    The different API calls have to be specified in the 'kind' parameter, possibilities are : 'search_query' (default),
     'trending_day','trending_week','popular','top_rated','recommendation'
-    :params query, kind, show_id, page:
-    :return: a list of all the API request's results. Each result is a dictionary with the same
-    items : 'title', 'date', 'popularity', 'vote_average', 'overview', 'id', 'poster_url'
+    All the results are stored in Show objects (cf classes.py).
     """
     params['page'] = page
 
