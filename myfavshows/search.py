@@ -91,6 +91,7 @@ def get_results(query, page):
         shows, total_pages = get_shows_from_search(query, page=page)
     # We handle exceptions when the API is not working as we expect
     except APIError as error:
+        raise APIError(error)
         print(error)
         return redirect(url_for('error'))
     except KeyError as error:
