@@ -1,5 +1,10 @@
 # MyFavShows App <img src="./myfavshows/static/tvshow.png" alt="drawing" width="50" align="center"/>
 
+## Collaborative school project
+
+MyFavShows App enables any user to search for TV Shows. 
+Registered users can add TV Shows to their favourites in order to get more details on the show such as the episodes' description.
+They also can enable notifications whenever a new episode of one of their favourites is aired.
 
 ## Installation
 1. Install the Python `virutalenv` package: 
@@ -29,13 +34,7 @@
 2. Run the app:
 
 	`flask run`
-	
-	
-## Collaborative school project
 
-MyFavShows App enables any user to search for TV Shows. 
-Registered users can add TV Shows to their favourites in order to get more details on the show such as the episodes' description.
-They also can enable notifications whenever a new episode of one of their favourites is aired.
 
 
 
