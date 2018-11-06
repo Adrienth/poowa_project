@@ -48,6 +48,10 @@ They also can enable notifications whenever a new episode of one of their favour
 Each user can create an account with a username, an email address and a password.
 Then, the user will be able to log in each time he goes to the website.
 You are welcomed to create your own account by clicking on the "register" button.
+If you are in a rush, here are some credentials for a prefilled account :
+
+username: jules
+password: password
 
 #### My favourites
 Each user can add and remove TV shows from his favourites.
@@ -55,7 +59,7 @@ To do it, he has to be connected. Once logged in, he can do these actions by sim
 You are welcomed to add and remove all your favourite shows.
 
 #### Notifications
-Each user will be noticed if one of his favourite shows is currently running whenever he goes to his favourites or the said show page.
+Each user will be notified if one of his favourite shows is currently running whenever he goes to his favourites page or the said show page.
 You are welcomed to see this notification by adding to your favourites the show named "The Walkin Dead" for example, or any other currently airing show you might think of.
 
 #### Object oriented programming
@@ -64,6 +68,7 @@ We have created 3 main classes :
 - one Show class
 - one Season class
 - one Episode class
+
 For each class, there is a subclass that inherits it, for example the ShowDetailedView class. The subclasses complete our objects with a more precise API request.
 All our attributes are in private or protected status according to their use. We have defined properties for all of them.
 
