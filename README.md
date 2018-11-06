@@ -50,8 +50,8 @@ Then, the user will be able to log in each time he goes to the website.
 You are welcomed to create your own account by clicking on the "register" button.
 If you are in a rush, here are some credentials for a prefilled account :
 
-username: jules
-password: password
+- username: jules
+- password: password
 
 #### My favourites
 Each user can add and remove TV shows from his favourites.
