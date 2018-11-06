@@ -65,6 +65,7 @@ You are welcomed to see this notification by adding to your favourites the show 
 #### Object oriented programming
 All the results of our API requests are stored in Python objects.
 We have created 3 main classes :
+
 - one Show class
 - one Season class
 - one Episode class
@@ -73,9 +74,10 @@ For each class, there is a subclass that inherits it, for example the ShowDetail
 All our attributes are in private or protected status according to their use. We have defined properties for all of them.
 
 #### Errors and exceptions
-When an error occured, an exception is raised for the developers and the final user is redirected to an error page.
+When an error occur, an exception is raised for the developers and the final user is redirected to an error page. 
 The following errors are handled by our code:
-- the API is down
+
+- the API is down : We created the APIerror exception to handle the case of a disfunctionning API.
 - the API results have changed : some arguments have been deleted or their type have changed for example
 
 #### Multithreading
@@ -86,6 +88,7 @@ Your are welcomed to add a few TV shows to your favourites and note the how quic
 #### Originality
 We made sure that the graphical interface could be as intuitive and beautiful as it could be.
 We added a few custom features to the application to improve user experience such as:
+
 - a user can easily discover new tv shows by surfing on the different pages: trending, popular, top rated
 - whenever a signed user has at least one show in his favourites, he get's recommandations on the home page relating to the last show he added in his list
 - we made sure that the user could easily switch between the different result pages
