@@ -1,10 +1,12 @@
 # MyFavShows App <img src="./myfavshows/static/tvshow.png" alt="drawing" width="50" align="center"/>
 
+
 ## Collaborative school project
 
 MyFavShows App enables any user to search for TV Shows. 
 Registered users can add TV Shows to their favourites in order to get more details on the show such as the episodes' description.
 They also can enable notifications whenever a new episode of one of their favourites is aired.
+
 
 ## Installation
 1. Install the Python `virutalenv` package: 
@@ -36,32 +38,48 @@ They also can enable notifications whenever a new episode of one of their favour
 	`flask run`
 
 
-
-
 ## Project specifications
 
 ### Authentification
-Each user can create an account with an username, a mail address and a password.
+Each user can create an account with a username, an email address and a password.
 Then, the user will be able to log in each time he goes to the website.
+You are welcomed to create your own account by clicking on the "register" button.
 
-### My favorites
-Each user can add and remove TV shows from his favorites.
-To do it, he has to be connected. Once logged in, he can do these actions by simply clicking on the heart icon. 
+### My favourites
+Each user can add and remove TV shows from his favourites.
+To do it, he has to be connected. Once logged in, he can do these actions by simply clicking on the heart icon.
+You are welcomed to add and remove all your favourite shows.
+
+### Notifications
+Each user will be noticed if one of his favourite shows is currently running.
+You are welcomed to see this notification by adding to your favourites the show named "The Walkin Dead" for example.
 
 #### Object oriented programming
 All the results of our API requests are stored in Python objects.
 We have created 3 main classes :
-	- one Show class
-	- one Season class
-	- one Episode class
-For each class, there is a subclass that inherits it, for example a class ShowDetailedView. The subclass completes our objects with a more precise API request.
-All our attributes are in private or protected status according to their use. We have defined our properties for all of them.
+- one Show class
+- one Season class
+- one Episode class
+For each class, there is a subclass that inherits it, for example the ShowDetailedView class. The subclasses complete our objects with a more precise API request.
+All our attributes are in private or protected status according to their use. We have defined properties for all of them.
 
 ### Errors and exceptions
 When an error occured, an exception is raised for the developers and the final user is redirected to an error page.
 The following errors are handled by our code:
-	1. The API is down
-	2. The API results have changed : some arguments have been deleted or have changed of typefor example
+- the API is down
+- the API results have changed : some arguments have been deleted or their type have changed for example
+
+### Multithreading
+We thought that it was useful to implement multithreading when the user loads his favourites page. Indeed, we noticed that we had to make as many API calls as the number of favourite TV shows, and that process could be pretty slow.
+Therefore we made sure that each of this request will be launched by a single thread, and at the same time than the others (cf class APIrequest(Thread) in classes.py and function make_multi_requests in backend.py).
+Your are welcomed to add a few TV shows to your favourites and see the welcome speed of the requests.
+
+### Originality
+We have had to 
+We have worked a lot on the graphical interface.
+
+
+
 
 
 
