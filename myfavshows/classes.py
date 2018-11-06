@@ -38,6 +38,16 @@ class APIrequest(Thread):
         APIrequest.shows = {}
 
 
+class APIError(Exception):
+    """An API Error Exception"""
+
+    def __init__(self, status):
+        self.status = status
+
+    def __str__(self):
+        return "APIError: status={}".format(self.status)
+
+
 class Show:
     """
     The show class, each instance will correspond to a show.
@@ -117,6 +127,9 @@ class ShowDetailedView(Show):
         Each ShowDetailedView's object is more detailed than the Show's objects because the API call is more specific.
         """
         req = requests.get('https://api.themoviedb.org/3/tv/' + str(show_id), params)
+        # Check the response status code and raise a custom exception if not 200
+        if not req.ok:
+            raise APIError(req.status_code)
         res = req.json()
         Show.__init__(self, res)
         self.__origin_country = res['origin_country']
@@ -250,6 +263,9 @@ class SeasonDetailedView(Season):
         more specific.
         """
         req = requests.get('https://api.themoviedb.org/3/tv/' + str(show_id) + '/season/' + str(season_number), params)
+        # Check the response status code and raise a custom exception if not 200
+        if not req.ok:
+            raise APIError(req.status_code)
         res = req.json()
         Season.__init__(self, res)
         self.__show_id = show_id
@@ -363,6 +379,9 @@ class EpisodeDetailedView(Episode):
         """
         req = requests.get('https://api.themoviedb.org/3/tv/' + str(show_id) + '/season/' + str(season_number) +
                            '/episode/' + str(episode_number), params)
+        # Check the response status code and raise a custom exception if not 200
+        if not req.ok:
+            raise APIError(req.status_code)
         res = req.json()
         Episode.__init__(self, res)
         self.__show_id = show_id

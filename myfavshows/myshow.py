@@ -16,7 +16,18 @@ def get_my_show(show_id):
     if 'user_id' in session:
         shows_to_session()
 
-    show = ShowDetailedView(show_id)
+    try:
+        show = ShowDetailedView(show_id)
+    # We handle exceptions when the API is not working as we expect
+    except APIError as error:
+        print(error)
+        return redirect(url_for('error'))
+    except KeyError as error:
+        print('ERROR The following field must have been removed from the API : ' + str(error))
+        return redirect(url_for('error'))
+    except TypeError as error:
+        print('ERROR The following field must have been modified in the API : ' + str(error))
+        return redirect(url_for('error'))
 
     return render_template('myshow/myshow.html', show=show)
 
@@ -27,7 +38,18 @@ def get_my_season(show_title, show_id, season_number):
     Create an object season of the SeasonDetailedView class with all the information about our season.
     :return: the myseason.html template with all the information about the season contained in the object season
     """
-    season = SeasonDetailedView(show_title, show_id, season_number)
+    try:
+        season = SeasonDetailedView(show_title, show_id, season_number)
+    # We handle exceptions when the API is not working as we expect
+    except APIError as error:
+        print(error)
+        return redirect(url_for('error'))
+    except KeyError as error:
+        print('ERROR The following field must have been removed from the API : ' + str(error))
+        return redirect(url_for('error'))
+    except TypeError as error:
+        print('ERROR The following field must have been modified in the API : ' + str(error))
+        return redirect(url_for('error'))
 
     return render_template('myshow/myseason.html', season=season)
 
@@ -38,6 +60,17 @@ def get_my_episode(show_title, show_id, season_number, episode_number):
     Create an object episode of the EpisodeDetailedView class with all the information about our episode.
     :return: the myepisode.html template with all the information about the episode contained in the object episode
     """
-    episode = EpisodeDetailedView(show_title, show_id, season_number, episode_number)
+    try:
+        episode = EpisodeDetailedView(show_title, show_id, season_number, episode_number)
+    # We handle exceptions when the API is not working as we expect
+    except APIError as error:
+        print(error)
+        return redirect(url_for('error'))
+    except KeyError as error:
+        print('ERROR The following field must have been removed from the API : ' + str(error))
+        return redirect(url_for('error'))
+    except TypeError as error:
+        print('ERROR The following field must have been modified in the API : ' + str(error))
+        return redirect(url_for('error'))
 
     return render_template('myshow/myepisode.html', episode=episode)

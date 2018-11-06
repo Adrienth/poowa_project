@@ -38,9 +38,9 @@ def get_shows_from_search(query, kind='search_query', show_id=None, page=1):
     else:
         print('Please enter a correct request type.')
 
+    # Check the response status code and raise a custom exception if not 200
     if not req.ok:
-        print('there was an error in the request : ', req.status_code)
-        return None
+        raise APIError(req.status_code)
 
     req_json = req.json()
 

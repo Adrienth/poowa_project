@@ -24,7 +24,18 @@ def get_my_fav():
 
     shows_to_session()
 
-    shows = make_multi_requests(session['show_ids'])
+    try:
+        shows = make_multi_requests(session['show_ids'])
+    # We handle exceptions when the API is not working as we expect
+    except APIError as error:
+        print(error)
+        return redirect(url_for('error'))
+    except KeyError as error:
+        print('ERROR The following field must have been removed from the API : ' + str(error))
+        return redirect(url_for('error'))
+    except TypeError as error:
+        print('ERROR The following field must have been modified in the API : ' + str(error))
+        return redirect(url_for('error'))
 
     return render_template('myfav/myfav.html', shows=shows)
 
