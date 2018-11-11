@@ -25,19 +25,19 @@ def create_app(test_config=None):
         pass
 
     # App context imports
-    from . import db
+    import db
     db.init_app(app)
 
-    from . import auth
+    import auth
     app.register_blueprint(auth.bp)
 
-    from . import search
+    import search
     app.register_blueprint(search.bp)
 
-    from . import myfav
+    import myfav
     app.register_blueprint(myfav.bp)
 
-    from . import myshow
+    import myshow
     app.register_blueprint(myshow.bp)
 
     @app.route('/about', methods=('GET',))
@@ -51,3 +51,6 @@ def create_app(test_config=None):
         return render_template('error.html')
 
     return app
+
+
+application = create_app()
