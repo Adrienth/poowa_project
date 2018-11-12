@@ -20,10 +20,12 @@ We dockerized the project and deployed it on Heroku, feel free to go check it ou
 
 	`cd /project_directory`
 	
-	`virtualenv .`
+	`virtualenv venv`
+	
+	`source venv/bin/activate`
 
 
-3. From the same directory, install the app:
+3. From the same directory, install the app and its dependencies:
 
 	`pip install -e myfavshows/`
   
