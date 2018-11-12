@@ -11,7 +11,7 @@ They also can enable notifications whenever a new episode of one of their favour
 We dockerized the project and deployed it on Heroku, feel free to go check it out at <a href='https://myfavshows.herokuapp.com'> this address <a/>.
 
 ## Installation
-1. Install the Python `virutalenv` package: 
+1. Install the Python `virtualenv` package: 
 
 	`pip install virtualenv`
 
@@ -62,7 +62,7 @@ You are welcomed to add and remove all your favourite shows.
 
 #### Notifications
 Each user will be notified if one of his favourite shows is currently running whenever he goes to his favourites page or the said show page.
-You are welcomed to see this notification by adding to your favourites the show named "The Walkin Dead" for example, or any other currently airing show you might think of.
+You are welcomed to see this notification by adding to your favourites the show named "The Walking Dead" for example, or any other currently airing show you might think of.
 
 #### Object oriented programming
 All the results of our API requests are stored in Python objects.
@@ -76,7 +76,7 @@ For each class, there is a subclass that inherits it, for example the ShowDetail
 All our attributes are in private or protected status according to their use. We have defined properties for all of them.
 
 #### Errors and exceptions
-When an error occur, an exception is raised for the developers and the final user is redirected to an error page. 
+When an error occurs, an exception is raised for the developers and the final user is redirected to an error page. 
 The following errors are handled by our code:
 
 - the API is down : We created the APIerror exception to handle the case of a disfunctionning API.
@@ -85,14 +85,14 @@ The following errors are handled by our code:
 #### Multithreading
 We thought that it was useful to implement multithreading when the user loads his favourites page. Indeed, we noticed that we had to make as many API calls as the number of favourite TV shows, and that process could be pretty slow.
 Therefore we made sure that each of this request will be launched by a single thread, and at the same time than the others (cf class APIrequest(Thread) in classes.py and function make_multi_requests in backend.py).
-Your are welcomed to add a few TV shows to your favourites and note the how quick the favourites page loads.
+Your are welcomed to add a few TV shows to your favourites and note how quick the favourites page loads.
 
 #### Originality
 We made sure that the graphical interface could be as intuitive and beautiful as it could be.
 We added a few custom features to the application to improve user experience such as:
 
 - a user can easily discover new tv shows by surfing on the different pages: trending, popular, top rated
-- whenever a signed user has at least one show in his favourites, he get's recommandations on the home page relating to the last show he added in his list
+- whenever a signed user has at least one show in his favourites, he gets recommandations on the home page relating to the last show he added in his list
 - we made sure that the user could easily switch between the different result pages
 - the user can use the right and left arrow keys on the search results, trending, popular and top rated pages
 
