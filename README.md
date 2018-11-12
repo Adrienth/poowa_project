@@ -24,7 +24,7 @@ We dockerized the project and deployed it on Heroku, feel free to go check it ou
 	
 	Linux / MacOS: `source venv/bin/activate`
 	
-	Windows: `venv/Scripts/activate.bat`
+	Windows: `.\venv\Scripts\activate.bat`
 
 
 3. From the same directory, install the app and its dependencies:
